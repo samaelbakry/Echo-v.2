@@ -2,14 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select";
 import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { registerSchema, type registerSchemaType } from "@/lib/AuthSchema.ts/authSchema";
@@ -22,6 +15,7 @@ const Register = () => {
   const navigate = useNavigate()
 
   const form = useForm({
+    mode:"all",
     defaultValues: {
       name: "",
       username: "",
@@ -57,7 +51,7 @@ const Register = () => {
   return (
     <>
       <div className=" text-gray-700 p-3 ">
-        <h2 className="md:text-2xl text-violet-900 font-bold text-left my-3">
+        <h2 className="md:text-2xl text-blue-800 font-bold text-left my-3">
           New to echo ? join us now !
         </h2>
         <form action="" className="space-y-3" onSubmit={form.handleSubmit(sendFormData)}>
@@ -208,10 +202,10 @@ const Register = () => {
           <p>
             already have an account ?
             <Link className="font-bold mx-1" to={"/login"}>
-              log in
+              Log in
             </Link>
           </p>
-          <Button  type="submit">
+          <Button  type="submit" className="cursor-pointer">
             {form.formState.isSubmitting ? <ImSpinner8 className="animated-spin" /> : "submit"}
           </Button>
         </div>

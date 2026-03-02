@@ -1,7 +1,110 @@
+import { Button } from "@/components/ui/button";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { loginSchema, type loginSchemaType } from "@/lib/AuthSchema.ts/authSchema";
+import { loginForm } from "@/services/authServices";
+import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import { Controller, useForm } from "react-hook-form";
+import { ImSpinner8 } from "react-icons/im";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  return <>
-  </>
+  const navigate = useNavigate()
+
+  const form = useForm({
+    mode:"all",
+    defaultValues: {
+      email: "",
+      password: "",
+  
+    },
+    resolver:zodResolver(loginSchema)
+  });
+
+
+  async function sendFormData(formData:loginSchemaType){
+  try {
+    const response =  await loginForm(formData)
+    console.log(response);
+
+    if(response.data.success){
+      setTimeout(() => {
+       navigate("/")
+       localStorage.setItem("token" ,response.data.data.token)
+      }, 1000);
+      toast.success("Account loggedin Successfully !" , {
+        position:"top-center"
+      })
+    }
+  } catch (error : any) {
+      console.log(error.response.data.error);
+  }
+ }
+
+  return (
+    <>
+      <div className=" text-gray-700 p-3 ">
+        <h2 className="md:text-2xl text-violet-900 font-bold text-left my-3">
+         welcome back join us now !
+        </h2>
+        <form action="" className="space-y-3" onSubmit={form.handleSubmit(sendFormData)}>
+          <Controller
+            name="email"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  type="email"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="Enter your email"
+                  autoComplete="off"
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            name="password"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  type="password"
+                  placeholder="Enter your password"
+                  autoComplete="off"
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+           <div className="flex items-center justify-between my-4">
+          <p>
+           Don't have account ?
+            <Link className="font-bold mx-1" to={"/login"}>
+              Register
+            </Link>
+          </p>
+          <Button  type="submit">
+            {form.formState.isSubmitting ? <ImSpinner8 className="animated-spin" /> : "submit"}
+          </Button>
+        </div>
+        </form>
+       
+      </div>
+    </>
+  );
 }
 
 export default Login

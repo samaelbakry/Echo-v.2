@@ -5,17 +5,19 @@ import AuthLayout from "./layouts/AuthLayout";
 import Register from "./auth/register/Register";
 import Login from "./auth/login/Login";
 import NotFound from "./pages/notFound/NotFound";
+import MainProtectedRoutes from "./components/protectedRoutes/MainProtectedRoutes";
+import AuthProtectedRoutes from "./components/protectedRoutes/authProtectedRoutes";
 
 const App = () => {
 	const router = createBrowserRouter([
 		{ path:"/" , element: <MainLayout/> , children:[
-			{index:true , element: <Navigate to={"/home"} />},
-			{path:"/home", element:<Feed/>}
+			{index:true , element: <MainProtectedRoutes> <Navigate to={"/home"} /></MainProtectedRoutes> },
+			{path:"/home", element: <MainProtectedRoutes><Feed/></MainProtectedRoutes>}
 		]},
 
 		{path:"/" , element: <AuthLayout/> , children:[
-			{path:"/register" , element:<Register/>},
-			{path:"/login" , element:<Login/>}
+			{path:"/register" , element:<AuthProtectedRoutes><Register/></AuthProtectedRoutes>},
+			{path:"/login" , element:<AuthProtectedRoutes><Login/></AuthProtectedRoutes>  }
 		]},
 
 		{path:"*" , element:<NotFound/>}

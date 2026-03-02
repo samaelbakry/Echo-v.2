@@ -121,7 +121,7 @@
         @apply bg-violet-900/10 backdrop-blur-2xl rounded-2xl border border-white/30 shadow-2xl font-semibold
     }
     .bg-auth{
-        @apply bg-linear-to-r from-violet-200 via-purple-100 to-gray-200
+        @apply bg-linear-to-r from-blue-200 via-blue-100 to-blue-50
        rounded-3xl shadow-xl p-8 text-center relative overflow-hidden gap-3
     }
 }
@@ -131,7 +131,7 @@
     @apply border-border outline-ring/50;
     }
   body {
-    @apply bg-violet-100 text-foreground;
+    @apply bg-blue-100 text-foreground;
     }
 
 }
