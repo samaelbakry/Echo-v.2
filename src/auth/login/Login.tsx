@@ -45,7 +45,7 @@ const Login = () => {
   return (
     <>
       <div className=" text-gray-700 p-3 ">
-        <h2 className="md:text-2xl text-violet-900 font-bold text-left my-3">
+        <h2 className="md:text-2xl text-blue-800 font-bold text-left my-3">
          welcome back join us now !
         </h2>
         <form action="" className="space-y-3" onSubmit={form.handleSubmit(sendFormData)}>
@@ -92,7 +92,7 @@ const Login = () => {
            <div className="flex items-center justify-between my-4">
           <p>
            Don't have account ?
-            <Link className="font-bold mx-1" to={"/login"}>
+            <Link className="font-bold mx-1" to={"/register"}>
               Register
             </Link>
           </p>
