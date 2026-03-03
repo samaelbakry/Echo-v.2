@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { registerSchema, type registerSchemaType } from "@/lib/AuthSchema.ts/authSchema";
 import { registerForm } from "@/services/authServices";
 import { toast } from "react-toastify";
-import { ImSpinner8 } from "react-icons/im";
+
 
 
 const Register = () => {
@@ -206,7 +206,7 @@ const Register = () => {
             </Link>
           </p>
           <Button  type="submit" className="cursor-pointer">
-            {form.formState.isSubmitting ? <ImSpinner8 className="animated-spin" /> : "submit"}
+            {form.formState.isSubmitting ? "Loading.." : "submit"}
           </Button>
         </div>
         </form>

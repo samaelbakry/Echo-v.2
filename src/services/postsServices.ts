@@ -20,3 +20,12 @@ export async function getSinglePostId(id:string) {
     })
     return response.data
 }
+export async function createNewPost(formData:any) {
+    const token = localStorage.getItem("token")
+    const response = await axios.post(`${API_BASE_URL}/posts`, formData ,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}

@@ -5,7 +5,6 @@ import { loginSchema, type loginSchemaType } from "@/lib/AuthSchema.ts/authSchem
 import { loginForm } from "@/services/authServices";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { Controller, useForm } from "react-hook-form";
-import { ImSpinner8 } from "react-icons/im";
 import { Link, useNavigate, } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -97,7 +96,7 @@ const Login = () => {
             </Link>
           </p>
           <Button  type="submit">
-            {form.formState.isSubmitting ? <ImSpinner8 className="animated-spin" /> : "submit"}
+            {form.formState.isSubmitting ? "Loading..": "submit"}
           </Button>
         </div>
         </form>
