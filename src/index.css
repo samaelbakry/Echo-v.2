@@ -117,8 +117,8 @@
     .bg-blur{
         @apply bg-white/10 backdrop-blur-2xl rounded-2xl border border-white/30 shadow-2xl font-semibold
     }
-    .bg-violet-blur{
-        @apply bg-violet-900/10 backdrop-blur-2xl rounded-2xl border border-white/30 shadow-2xl font-semibold
+    .bg-blue-blur{
+        @apply bg-blue-950/10 backdrop-blur-2xl rounded-2xl border border-white/30 shadow-2xl font-semibold
     }
     .bg-auth{
         @apply bg-linear-to-r from-blue-200 via-blue-100 to-blue-50

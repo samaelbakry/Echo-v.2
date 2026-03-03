@@ -6,7 +6,7 @@ import Register from "./auth/register/Register";
 import Login from "./auth/login/Login";
 import NotFound from "./pages/notFound/NotFound";
 import MainProtectedRoutes from "./components/protectedRoutes/MainProtectedRoutes";
-import AuthProtectedRoutes from "./components/protectedRoutes/authProtectedRoutes";
+import AuthProtectedRoutes from "./components/protectedRoutes/AuthProtectedRoutes";
 
 const App = () => {
 	const router = createBrowserRouter([

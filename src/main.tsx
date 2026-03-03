@@ -4,11 +4,16 @@ import { ToastContainer } from "react-toastify";
 import "./index.css";
 import App from "./App.tsx";
 import TokenContextProvider from "./context/TokenContextProvider.tsx";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <TokenContextProvider>
+      <QueryClientProvider client={queryClient}>
       <App />
+      </QueryClientProvider>
       <ToastContainer />
     </TokenContextProvider>
   </StrictMode>,
