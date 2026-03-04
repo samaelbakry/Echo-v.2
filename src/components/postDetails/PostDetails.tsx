@@ -15,10 +15,6 @@ const PostDetails = ({ post }: { post: PostType }) => {
     enabled: isOpen,
   });
 
-  if (isOpen) {
-    console.log(data);
-  }
-
   return (
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>

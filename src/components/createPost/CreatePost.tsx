@@ -56,6 +56,7 @@ const CreatePost = () => {
        toast.success('Your post was published')
       setOpen(false)
       queryClient.invalidateQueries({queryKey:["getAllPosts"]})
+      setSelectedImage(null)
     } catch (error) {
       console.log(error);
     }finally{

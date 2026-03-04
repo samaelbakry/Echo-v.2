@@ -3,15 +3,27 @@ import { AiFillLike } from "react-icons/ai";
 import { AiOutlineComment } from "react-icons/ai";
 import { FaShare } from "react-icons/fa6";
 import PostDetails from "../postDetails/PostDetails";
+import { addLike } from "@/services/postsServices";
+import { useState } from "react";
 
 const PostCardFooter = ({ post }: { post: PostType }) => {
+  const [isLiked, setIsLiked] = useState<boolean>()
+  const [likesCount, setLikesCount] = useState<number>(post.likesCount);
 
-
+ async function getNewLike(postId:string) {
+    const response = await addLike(postId)
+    const liked = response.data?.liked
+    setIsLiked(liked);
+    console.log(response);
+    setLikesCount((prev)=>(liked ? prev + 1 : prev - 1))
+    
+  }
+ 
   return (
     <>
       <div className="flex items-center justify-between p-5">
         <span className="flex items-center gap-2">
-          {post.likesCount} likes
+          {likesCount} likes
           <AiFillLike />
         </span>
         <span className={`flex items-center gap-2 ${post.commentsCount >=2 ?"text-blue-900" : ""}`}>
@@ -21,10 +33,10 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
         </span>
       </div>
       <div className="flex items-center justify-between p-3">
-        <div className="flex items-center gap-2 reactionsBtn ">
-          like
+        <button className={`flex items-center gap-2 ${isLiked ? "liked" : "reactionsBtn"} `} onClick={()=>getNewLike(post._id)}>
+         {isLiked ? "liked" : "like"}
           <AiFillLike />
-        </div>
+        </button>
         <div className="flex items-center gap-2 reactionsBtn">
           comment
           <AiOutlineComment />
