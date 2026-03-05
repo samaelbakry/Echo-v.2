@@ -31,6 +31,25 @@ export async function createNewPost(formData:any) {
     })
     return response.data
 }
+export async function updatePost(postId:string,formData:any) {
+    const token = localStorage.getItem("token")
+    const response = await axios.put(`${API_BASE_URL}/posts/${postId}`, formData ,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}
+export async function deletePost(postId:string) {
+    const token = localStorage.getItem("token")
+    const response = await axios.delete(`${API_BASE_URL}/posts/${postId}`,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}
+
 export async function addLike(postId:string) {
     const token = localStorage.getItem("token")
     const response = await axios.put(`${API_BASE_URL}/posts/${postId}/like`,{},{

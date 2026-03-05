@@ -8,11 +8,14 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const Feed = () => {
+
  const { data:post , isLoading } = useQuery<DataType, Error,PostType[]>({
+  
   queryKey:["getAllPosts"],
   queryFn:getAllPosts,
   select:(data)=>data?.data.posts,
  })
+
 
 
   return (
@@ -22,7 +25,7 @@ const Feed = () => {
             user data
           </div>
           <div className="col-span-1 md:col-span-4 bg-blur p-2 order-3 md:order-2">
-            <CreatePost />
+            <CreatePost  />
             {isLoading ? [...Array(5)].map( ()=> <PostSkeleton />) :
              <React.Fragment >
             {post?.map((myPost)=> (

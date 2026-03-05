@@ -1,14 +1,7 @@
 import { getUserData } from "@/services/userServices";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { TiAttachment } from "react-icons/ti";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger,} from "@/components/ui/dialog";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import React, { useEffect, useState} from "react";
@@ -17,10 +10,10 @@ import { Spinner } from "../ui/spinner";
 import { createNewPost } from "@/services/postsServices";
 
 const CreatePost = () => {
+    const [open, setOpen] = useState<boolean>(false)
     const [selectedImage, setSelectedImage] = useState<File | null>(null)
     const [preview, setPreview] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
-    const [open, setOpen] = useState(false)
     const queryClient =useQueryClient()
 
     const { data: userData } = useQuery({
@@ -76,8 +69,6 @@ const CreatePost = () => {
   }, [selectedImage])
   
 
-
-
   return (
     <>
       <div className="bg-blue-50/70 shadow rounded-xl p-4 flex items-center justify-between flex-wrap gap-2">
@@ -113,12 +104,13 @@ const CreatePost = () => {
                       </div>
                     </div>
                   </div>
-                  <Textarea className={`max-w-3xl ${preview ? "" : "min-h-40"}`} ref={textAreaControl} placeholder="Got something to say ?...." />
+                  <Textarea className={`max-w-3xl ${preview ? "" : "min-h-40 border-0"}`} ref={textAreaControl} placeholder="Got something to say ?...." />
                    {preview && <img src={preview} className="size-fit object-cover"  alt="post-image"/> }
                   <div className="flex my-4 items-center gap-3 justify-end">
                     <input type="file" onChange={chooseFile} className="hidden" ref={inputControl} />
                     <TiAttachment  onClick={openFile} className="text-3xl"/>
                     <Button className="cursor-pointer" onClick={createPostFeed}>{isLoading ? <Spinner /> : "share your post"}</Button>
+                    <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
                   </div>
                 </DialogDescription>
               </DialogHeader>

@@ -18,6 +18,7 @@ export interface CommentType {
   post: string
   parentComment: any
   likes: any[]
+  image?:string
   createdAt: string
   repliesCount: number
 }

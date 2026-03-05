@@ -16,7 +16,6 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
     setIsLiked(liked);
     console.log(response);
     setLikesCount((prev)=>(liked ? prev + 1 : prev - 1))
-    
   }
  
   return (
@@ -37,9 +36,9 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
          {isLiked ? "liked" : "like"}
           <AiFillLike />
         </button>
-        <div className="flex items-center gap-2 reactionsBtn">
-          comment
+        <div className="flex items-center gap-2 reactionsBtn cursor-pointer">
           <AiOutlineComment />
+          <PostDetails post={post} comments/>
         </div>
         <div className="flex items-center gap-2 reactionsBtn">
           share
