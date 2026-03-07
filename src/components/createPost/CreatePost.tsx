@@ -98,9 +98,6 @@ const CreatePost = () => {
                         <span className="capitalize text-blue-900">
                           {userData?.name} - @{userData?.username}
                         </span>
-                        <span className="capitalize text-blue-900">
-                          {userData?.email}
-                        </span>
                       </div>
                     </div>
                   </div>

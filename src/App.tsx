@@ -7,12 +7,14 @@ import Login from "./auth/login/Login";
 import NotFound from "./pages/notFound/NotFound";
 import MainProtectedRoutes from "./components/protectedRoutes/MainProtectedRoutes";
 import AuthProtectedRoutes from "./components/protectedRoutes/AuthProtectedRoutes";
+import UserProfile from "./pages/userProfile/UserProfile";
 
 const App = () => {
 	const router = createBrowserRouter([
 		{ path:"/" , element: <MainLayout/> , children:[
 			{index:true , element: <MainProtectedRoutes> <Navigate to={"/home"} /></MainProtectedRoutes> },
-			{path:"/home", element: <MainProtectedRoutes><Feed/></MainProtectedRoutes>}
+			{path:"/home", element: <MainProtectedRoutes><Feed/></MainProtectedRoutes>},
+			{path:"/userProfile", element: <MainProtectedRoutes><UserProfile/></MainProtectedRoutes>}
 		]},
 
 		{path:"/" , element: <AuthLayout/> , children:[

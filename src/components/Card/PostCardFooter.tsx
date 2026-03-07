@@ -22,8 +22,8 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
     <>
       <div className="flex items-center justify-between p-5">
         <span className="flex items-center gap-2">
-          {likesCount} likes
-          <AiFillLike />
+          {likesCount} {likesCount <=1 ? "like" :"likes"} 
+          <AiFillLike className="text-blue-800" />
         </span>
         <span className={`flex items-center gap-2 ${post.commentsCount >=2 ?"text-blue-900" : ""}`}>
           <span className="cursor-pointer">{post.commentsCount  <=1 ? "comment" : <span>{post.commentsCount} comments</span> }</span> 

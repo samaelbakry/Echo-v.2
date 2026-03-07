@@ -125,10 +125,13 @@
        rounded-3xl shadow-xl p-8 text-center relative overflow-hidden gap-3
     }
     .reactionsBtn{
-        @apply bg-gray-200 px-6 py-1 rounded-2xl hover:bg-blue-300 duration-500 cursor-pointer
+        @apply bg-gray-100 px-6 py-1 rounded-2xl hover:bg-gray-100 hover:shadow duration-500 cursor-pointer 
     }
     .liked{
          @apply  px-6 py-1 rounded-2xl bg-blue-300 duration-500 cursor-pointer
+    }
+    .followBtn{
+         @apply  border border-blue-500 px-4 rounded-2xl hover:bg-blue-900 hover:text-white hover:border-0 duration-500 cursor-pointer
     }
 }
 

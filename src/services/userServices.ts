@@ -11,3 +11,13 @@ export async function getUserData() {
   });
   return data;
 }
+export async function getUserPosts(userId:string) {
+  const token = localStorage.getItem("token");
+
+  const data = await axios.get(`${API_BASE_URL}/users/${userId}/posts`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+}

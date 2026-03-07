@@ -2,6 +2,7 @@ import PostCard from "@/components/Card/PostCard";
 import CreatePost from "@/components/createPost/CreatePost";
 import Notifications from "@/components/notifications/Notifications";
 import PostSkeleton from "@/components/postSkeleton/PostSkeleton";
+import UserInfo from "@/components/userInfo/UserInfo";
 import { getAllPosts } from "@/services/postsServices";
 import type { DataType, PostType } from "@/types/postsType";
 import { useQuery } from "@tanstack/react-query";
@@ -21,8 +22,8 @@ const Feed = () => {
   return (
     <>
         <div className="mx-auto max-w-7xl grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-8 xl:grid-cols-8 p-5 my-5">
-          <div className=" col-span-1 md:col-span-2 bg-blur h-50 order-1">
-            user data
+          <div className=" col-span-1 md:col-span-2 bg-blur self-start order-1">
+            <UserInfo/>
           </div>
           <div className="col-span-1 md:col-span-4 bg-blur p-2 order-3 md:order-2">
             <CreatePost  />
