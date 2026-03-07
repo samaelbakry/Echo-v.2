@@ -3,8 +3,8 @@ import { AiFillLike } from "react-icons/ai";
 import { AiOutlineComment } from "react-icons/ai";
 import { FaShare } from "react-icons/fa6";
 import PostDetails from "../postDetails/PostDetails";
-import { addLike } from "@/services/postsServices";
 import { useState } from "react";
+import { addLike } from "@/services/interactionServices";
 
 const PostCardFooter = ({ post }: { post: PostType }) => {
   const [isLiked, setIsLiked] = useState<boolean>()

@@ -50,12 +50,3 @@ export async function deletePost(postId:string) {
     return response.data
 }
 
-export async function addLike(postId:string) {
-    const token = localStorage.getItem("token")
-    const response = await axios.put(`${API_BASE_URL}/posts/${postId}/like`,{},{
-        headers:{
-            Authorization:`Bearer ${token}`
-        }
-    })
-    return response.data
-}

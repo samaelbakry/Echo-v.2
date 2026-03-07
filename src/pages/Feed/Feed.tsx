@@ -35,7 +35,7 @@ const Feed = () => {
             </React.Fragment>))}
             </React.Fragment>}
           </div>
-          <div className="col-span-1 md:col-span-2 bg-blur self-start p-4 order-2 md:order-3">
+          <div className="col-span-1 md:col-span-2 self-start p-4 order-2 md:order-3">
             <Notifications />
           </div>
         </div>

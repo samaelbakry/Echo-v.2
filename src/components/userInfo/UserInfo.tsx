@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FaUserCheck, FaUserFriends } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { getFollowSuggestions } from "@/services/interactionServices";
 
 const UserInfo = () => {
     const { data: userData } = useQuery({
@@ -10,6 +11,13 @@ const UserInfo = () => {
     queryFn: getUserData,
     select: (data) => data?.data?.data?.user,
   });
+    const { data: suggestions } = useQuery({
+    queryKey: ["getFollowSuggestions"],
+    queryFn: getFollowSuggestions,
+    select:(suggestions)=>suggestions?.data?.suggestions
+  });
+ console.log(suggestions);
+ 
  
   return (
     <>
@@ -67,6 +75,26 @@ const UserInfo = () => {
           </div>
         </div>
       </div>
+      <div className="p-4 ">
+      <h2 className="text-lg font-bold mb-3">Suggestions for you</h2>
+      <ul className="flex flex-col gap-3">
+        {suggestions?.map((user:any) => (
+          <li key={user._id} className="flex items-center justify-between p-2 rounded hover:bg-blue-50 hover:rounded-xl">
+            <div className="flex items-center gap-3">
+              <img src={user.photo} alt={user.name}className="w-10 h-10 rounded-full object-cover"
+              />
+              <div className="flex flex-col">
+                <span className="font-medium text-sm">{user.name}</span>
+                {user.username && <span className="text-xs text-gray-500">@{user.username}</span>}
+              </div>
+            </div>
+            <button className="followBtn">
+              Follow
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
     </>
   );
 };

@@ -29,7 +29,8 @@ const Notifications = () => {
   return (
     <>
       {data?.length === 0 ? (
-        <span className="block text-center text-sm text-gray-500 py-6">
+        <span className="text-center text-sm text-gray-500 py-6">
+          <HiOutlineBellAlert className=" inline-block mr-2  text-sm" />
           No notifications yet
         </span>
       ) : (

@@ -133,6 +133,9 @@
     .followBtn{
          @apply  border border-blue-500 px-4 rounded-2xl hover:bg-blue-900 hover:text-white hover:border-0 duration-500 cursor-pointer
     }
+    .followedBtn{
+         @apply  bg-blue-900 text-white  duration-500 cursor-pointer  px-4 rounded-2xl
+    }
 }
 
 @layer base {

@@ -15,11 +15,15 @@ import {  useState } from "react";
 import { deletePost } from "@/services/postsServices";
 import { toast } from "react-toastify";
 import UpdatePostDialog from "../updatePostDialog/UpdatePostDialog";
+import { followAction } from "@/services/interactionServices";
+
 
 const PostCardHeader = ({ post }: { post: PostType }) => {
 
   const [open, setOpen] = useState<boolean>(false);
+  const [following, setfollowing] = useState()
   const queryClient =useQueryClient()
+ 
   const { data: userData } = useQuery({
     queryKey: ["getUserData"],
     queryFn: getUserData,
@@ -29,6 +33,14 @@ const PostCardHeader = ({ post }: { post: PostType }) => {
     const response =await deletePost(post._id)
     toast.success("post deleted Successfully!")
     queryClient.invalidateQueries({queryKey:["getAllPosts"]})
+  };
+  const handleFollow = async () => {
+    const response = await followAction(post.user._id)
+    setfollowing(response.data.following)
+    console.log(response);
+    const action = response.data.following ? "followed" : "unfollowed"
+    toast.success(`${action} ${post.user.name}`)
+    queryClient.invalidateQueries({queryKey:["getUserData"]})
   };
 
 
@@ -45,8 +57,10 @@ const PostCardHeader = ({ post }: { post: PostType }) => {
             <div className="capitalize flex items-center gap-2 text-blue-900 text-sm">
               {post.user.name} - @{post.user.username} 
               {post.user.name === userData.name ? " " : <>
-               <button className="followBtn">
-                <span className="font-bold">follow</span>
+               <button className={`${following ? "followedBtn": "followBtn" }`} onClick={handleFollow}>
+                 <span className="font-semibold flex items-center gap-1">
+                    {following ? (<> Unfollow</>) : "Follow"}
+                  </span>
               </button>
               </>}
              
