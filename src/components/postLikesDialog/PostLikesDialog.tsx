@@ -39,7 +39,7 @@ const PostLikesDialog = ({likesCount,post,}: {likesCount: number;post: PostType;
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild onClick={() => handleLikes(post._id)}>
-          <button className="flex gap-1 items-center">
+          <button className="flex gap-1 items-center cursor-pointer">
             {likesCount} {likesCount <= 1 ? "like" : "likes"}
             <AiFillLike className="text-blue-800" />
           </button>

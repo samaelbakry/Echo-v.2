@@ -2,7 +2,7 @@ import type { PostType } from "@/types/postsType";
 import { AiFillLike } from "react-icons/ai";
 import { AiOutlineComment } from "react-icons/ai";
 import PostDetails from "../postDetails/PostDetails";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addLike, savePost } from "@/services/interactionServices";
 import { GoBookmarkFill } from "react-icons/go";
 import { toast } from "react-toastify";
@@ -13,7 +13,11 @@ import PostLikesDialog from "../postLikesDialog/PostLikesDialog";
 
 const PostCardFooter = ({ post }: { post: PostType }) => {
 
-  const [isLiked, setIsLiked] = useState<boolean>();
+  // const [isLiked, setIsLiked] = useState<boolean>();
+  const [isLiked, setIsLiked] = useState(()=>{
+    const storedLikes = localStorage.getItem(`liked-${post._id}`)
+     return storedLikes ? JSON.parse(storedLikes) : false;
+  });
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [likesCount, setLikesCount] = useState<number>(post.likesCount);
   const queryClient = useQueryClient();
@@ -40,6 +44,10 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
     queryFn: getUserData,
     select: (data) => data?.data?.data?.user,
   });
+  useEffect(() => {
+   localStorage.setItem(`liked-${post._id}`, JSON.stringify(isLiked))
+  }, [isLiked, post._id])
+  
   return (
     <>
       <div className="flex items-center justify-between p-5">
