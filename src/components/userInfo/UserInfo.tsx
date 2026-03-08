@@ -35,17 +35,13 @@ const UserInfo = () => {
              <h2 className="text-lg font-semibold">{userData?.name}</h2>
             </Link>
           <span className="text-sm text-gray-500">@{userData?.username}</span>
-
           <span className="text-sm text-gray-600">{userData?.email}</span>
-
           <span className="text-sm text-gray-600">
             Gender: {userData?.gender}
           </span>
-
           <span className="text-sm text-gray-600">
             Birth date: {new Date(userData?.dateOfBirth).toLocaleDateString()}
           </span>
-
           <div className="flex flex-col gap-3 mt-3 text-sm">
             <span className="flex items-center gap-2 bg-blue-50 p-2 rounded-xl">
               <span className="bg-blue-200 p-1 rounded-lg">
@@ -54,7 +50,6 @@ const UserInfo = () => {
               <span className="font-medium">{userData?.followersCount}</span>
               Followers
             </span>
-
             <span className="flex items-center gap-2 bg-green-50 p-2 rounded-xl">
               <span className="bg-green-200 p-1 rounded-lg">
                 <FaUserFriends className="text-base text-green-700" />

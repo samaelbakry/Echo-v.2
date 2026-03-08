@@ -10,6 +10,16 @@ export async function addLike(postId:string) {
     })
     return response.data
 }
+export async function getPostLikes(postId:string) {
+    const token = localStorage.getItem("token")
+    const response = await axios.get(`${API_BASE_URL}/posts/${postId}/likes?page=1&limit=20`,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}
+
 export async function followAction(followUserId:string) {
     const token = localStorage.getItem("token")
     const response = await axios.put(`${API_BASE_URL}/users/${followUserId}/follow`,{},{
@@ -41,6 +51,15 @@ export async function savePost(postId:string) {
 export async function getAllSavedPosts() {
     const token = localStorage.getItem("token")
     const response = await axios.get(`${API_BASE_URL}/users/bookmarks`,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}
+export async function sharePost(postId:string , shareText:string) {
+    const token = localStorage.getItem("token")
+    const response = await axios.post(`${API_BASE_URL}/posts/${postId}/share`, shareText ,{
         headers:{
             Authorization:`Bearer ${token}`
         }
