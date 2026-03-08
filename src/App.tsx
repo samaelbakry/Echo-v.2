@@ -9,6 +9,7 @@ import MainProtectedRoutes from "./components/protectedRoutes/MainProtectedRoute
 import AuthProtectedRoutes from "./components/protectedRoutes/AuthProtectedRoutes";
 import UserProfile from "./pages/userProfile/UserProfile";
 import FriendProfile from "./pages/friendProfile/FriendProfile";
+import Bookmarked from "./pages/bookmarked/Bookmarked";
 
 const App = () => {
 	const router = createBrowserRouter([
@@ -16,7 +17,8 @@ const App = () => {
 			{index:true , element: <MainProtectedRoutes> <Navigate to={"/home"} /></MainProtectedRoutes> },
 			{path:"/home", element: <MainProtectedRoutes><Feed/></MainProtectedRoutes>},
 			{path:"/userProfile", element: <MainProtectedRoutes><UserProfile/></MainProtectedRoutes>},
-			{path:"/profile/:userProfileId", element: <MainProtectedRoutes><FriendProfile/></MainProtectedRoutes>}
+			{path:"/profile/:userProfileId", element: <MainProtectedRoutes><FriendProfile/></MainProtectedRoutes>},
+			{path:"/bookmarkedPosts", element: <MainProtectedRoutes><Bookmarked/></MainProtectedRoutes>}
 		]},
 
 		{path:"/" , element: <AuthLayout/> , children:[

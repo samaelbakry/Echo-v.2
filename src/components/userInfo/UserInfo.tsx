@@ -63,13 +63,13 @@ const UserInfo = () => {
               Following
             </span>
 
-            <span className="flex items-center gap-2 bg-purple-50 p-2 rounded-xl">
+            <Link to={"/bookmarkedPosts"} className="flex items-center gap-2 bg-purple-50 p-2 rounded-xl">
               <span className="bg-purple-200 p-1 rounded-lg">
                 <FaBookmark className="text-base text-purple-700" />
               </span>
               <span className="font-medium">{userData?.bookmarksCount}</span>
               Bookmarks
-            </span>
+            </Link>
           </div>
         </div>
       </div>

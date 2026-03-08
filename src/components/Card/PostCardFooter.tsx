@@ -4,11 +4,18 @@ import { AiOutlineComment } from "react-icons/ai";
 import { FaShare } from "react-icons/fa6";
 import PostDetails from "../postDetails/PostDetails";
 import { useState } from "react";
-import { addLike } from "@/services/interactionServices";
+import { addLike, savePost } from "@/services/interactionServices";
+import { GoBookmarkFill } from "react-icons/go";
+import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
+
 
 const PostCardFooter = ({ post }: { post: PostType }) => {
   const [isLiked, setIsLiked] = useState<boolean>()
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(false)
   const [likesCount, setLikesCount] = useState<number>(post.likesCount);
+  const queryClient =useQueryClient()
+
 
  async function getNewLike(postId:string) {
     const response = await addLike(postId)
@@ -16,6 +23,16 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
     setIsLiked(liked);
     console.log(response);
     setLikesCount((prev)=>(liked ? prev + 1 : prev - 1))
+  }
+ async function handleBookmark(postId:string){
+  try {
+     const response = await savePost(postId)
+    setIsBookmarked(response?.data?.bookmarked)
+    toast.success(response?.data?.bookmarked ? "Saved!" : "Removed!")
+    queryClient.invalidateQueries({queryKey:["getUserData"]})
+  } catch (error) {
+    console.log(error);
+  }
   }
  
   return (
@@ -40,10 +57,14 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
           <AiOutlineComment />
           <PostDetails post={post} comments/>
         </div>
-        <div className="flex items-center gap-2 reactionsBtn">
-          share
+        <button className="flex items-center gap-2 reactionsBtn">
+          Share
           <FaShare />
-        </div>
+        </button>
+        <button className={`flex items-center gap-2  ${isBookmarked ? "bookmarkedBtn" : "reactionsBtn" }`} onClick={()=>handleBookmark(post._id)}>
+          {isBookmarked ? "Saved" : "Save"}
+          <GoBookmarkFill className={`${isBookmarked ?  "text-blue-700 fill-blue-700" : ""}`} />
+        </button>
       </div>
       {post.topComment && (
         <>
