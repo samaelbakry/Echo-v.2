@@ -18,7 +18,7 @@ const Bookmarked = () => {
         <UserInfo/>
     </div>
     <div className="col-span-1 md:col-span-2">
-            {data.map((savedPost:PostType)=>(<PostCard post={savedPost}/>))}
+            {data?.map((savedPost:PostType)=>(<PostCard post={savedPost}/>))}
     </div>
 
   </div>

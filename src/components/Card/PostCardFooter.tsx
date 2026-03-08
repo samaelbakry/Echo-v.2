@@ -13,12 +13,14 @@ import PostLikesDialog from "../postLikesDialog/PostLikesDialog";
 
 const PostCardFooter = ({ post }: { post: PostType }) => {
 
-  // const [isLiked, setIsLiked] = useState<boolean>();
   const [isLiked, setIsLiked] = useState(()=>{
     const storedLikes = localStorage.getItem(`liked-${post._id}`)
      return storedLikes ? JSON.parse(storedLikes) : false;
   });
-  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+  const [isBookmarked, setIsBookmarked] = useState(()=>{
+    const storedPosts = localStorage.getItem(`saved-${post._id}`)
+    return storedPosts ? JSON.parse(storedPosts) : false;
+  });
   const [likesCount, setLikesCount] = useState<number>(post.likesCount);
   const queryClient = useQueryClient();
 
@@ -46,7 +48,8 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
   });
   useEffect(() => {
    localStorage.setItem(`liked-${post._id}`, JSON.stringify(isLiked))
-  }, [isLiked, post._id])
+   localStorage.setItem(`saved-${post._id}`, JSON.stringify(isBookmarked))
+  }, [isLiked,isBookmarked,post._id])
   
   return (
     <>
