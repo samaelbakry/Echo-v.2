@@ -21,7 +21,7 @@ export async function followAction(followUserId:string) {
 }
 export async function getFollowSuggestions() {
     const token = localStorage.getItem("token")
-    const response = await axios.get(`${API_BASE_URL}/users/suggestions?limit=10`,{
+    const response = await axios.get(`${API_BASE_URL}/users/suggestions?limit=5`,{
         headers:{
             Authorization:`Bearer ${token}`
         }

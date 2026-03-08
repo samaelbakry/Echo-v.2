@@ -12,6 +12,7 @@ export interface PostType {
   _id: string
   body: string
   image?: string
+  cover?: string
   privacy: string
   user: UserType
   sharedPost: any

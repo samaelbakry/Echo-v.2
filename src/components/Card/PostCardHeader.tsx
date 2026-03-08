@@ -1,24 +1,19 @@
-import { getUserData } from "@/services/userServices";
+import { getFriendsPosts, getFriendsProfile, getUserData } from "@/services/userServices";
 import type { PostType } from "@/types/postsType";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger,} from "../ui/dropdown-menu";
 import {  useState } from "react";
 import { deletePost } from "@/services/postsServices";
 import { toast } from "react-toastify";
 import UpdatePostDialog from "../updatePostDialog/UpdatePostDialog";
 import { followAction } from "@/services/interactionServices";
+import { Link } from "react-router-dom";
 
 
-const PostCardHeader = ({ post }: { post: PostType }) => {
+const PostCardHeader = ({ post ,friendProfile }: { post: PostType ,  friendProfile?:boolean }) => {
 
   const [open, setOpen] = useState<boolean>(false);
   const [following, setfollowing] = useState()
@@ -29,6 +24,7 @@ const PostCardHeader = ({ post }: { post: PostType }) => {
     queryFn: getUserData,
     select: (data) => data?.data?.data?.user,
   });
+ 
   const handleDelete = async () => {
     const response =await deletePost(post._id)
     toast.success("post deleted Successfully!")
@@ -42,21 +38,22 @@ const PostCardHeader = ({ post }: { post: PostType }) => {
     toast.success(`${action} ${post.user.name}`)
     queryClient.invalidateQueries({queryKey:["getUserData"]})
   };
-
-
+ 
   return (
     <>
       <div className="flex items-center justify-between p-4">
         <div className="flex gap-2 items-center">
           <img
             className="size-10 object-cover rounded-full"
-            src={post.user.photo}
-            alt={post.user.name}
+            src={post?.user?.photo}
+            alt={post?.user?.name}
           />
           <div className="flex flex-col gap-1">
             <div className="capitalize flex items-center gap-2 text-blue-900 text-sm">
-              {post.user.name} - @{post.user.username} 
-              {post.user.name === userData.name ? " " : <>
+              <Link to={`/profile/${post?.user?._id}`}>
+              {post?.user?.name} - @{post?.user?.username} 
+              </Link>
+              {post?.user?._id == userData?._id  ? " " :<>
                <button className={`${following ? "followedBtn": "followBtn" }`} onClick={handleFollow}>
                  <span className="font-semibold flex items-center gap-1">
                     {following ? (<> Unfollow</>) : "Follow"}
@@ -74,7 +71,7 @@ const PostCardHeader = ({ post }: { post: PostType }) => {
           </div>
         </div>
         <div className="px-3">
-          {post.user.name === userData.name && (
+          {post?.user?.name === userData?.name && (
             <>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -97,7 +94,7 @@ const PostCardHeader = ({ post }: { post: PostType }) => {
           )}
         </div>
       </div>
-      <UpdatePostDialog post={post} open={open} setOpen={setOpen}/>
+      {friendProfile ? " " : <UpdatePostDialog post={post} open={open} setOpen={setOpen}/> }
      
     </>
   );

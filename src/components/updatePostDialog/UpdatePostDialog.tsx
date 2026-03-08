@@ -69,8 +69,8 @@ const UpdatePostDialog = ({ post ,open , setOpen  }: { post: PostType , open: bo
                 className="size-8 rounded-2xl"
               />
               <div className="flex flex-col">
-                <span>{userData.name}</span>
-                <span>{userData.username}</span>
+                <span>{userData?.name}</span>
+                <span>{userData?.username ? userData.username :"user" }</span>
               </div>
             </div>
             <DialogDescription>

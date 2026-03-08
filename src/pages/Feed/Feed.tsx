@@ -22,7 +22,7 @@ const Feed = () => {
   return (
     <>
         <div className="mx-auto max-w-7xl grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-8 xl:grid-cols-8 p-5 my-5">
-          <div className=" col-span-1 md:col-span-2 bg-blur self-start order-1">
+          <div className="bg-blur col-span-1 md:col-span-2  self-start order-1">
             <UserInfo/>
           </div>
           <div className="col-span-1 md:col-span-4 bg-blur p-2 order-3 md:order-2">
@@ -35,7 +35,7 @@ const Feed = () => {
             </React.Fragment>))}
             </React.Fragment>}
           </div>
-          <div className="col-span-1 md:col-span-2 self-start p-4 order-2 md:order-3">
+          <div className="col-span-1 md:col-span-2 bg-blur self-start p-4 order-2 md:order-3">
             <Notifications />
           </div>
         </div>

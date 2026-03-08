@@ -4,6 +4,7 @@ import { FaUserCheck, FaUserFriends } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { getFollowSuggestions } from "@/services/interactionServices";
+import fallBackImg from "../../assets/download (2).jpg"
 
 const UserInfo = () => {
     const { data: userData } = useQuery({
@@ -16,20 +17,17 @@ const UserInfo = () => {
     queryFn: getFollowSuggestions,
     select:(suggestions)=>suggestions?.data?.suggestions
   });
- console.log(suggestions);
  
  
   return (
     <>
       <div className="my-1 p-1">
-        <div className="bg-amber-200 h-24 rounded-md relative">
-          <span className="text-sm text-gray-600 absolute top-2 left-2">
-            cover photo
-          </span>
+        <div className="h-24 rounded-md relative ">
+         <img src={userData?.cover || fallBackImg} alt="cover" className="w-full h-full object-cover rounded-md"/>
           <img
             src={userData?.photo}
             alt={userData?.name}
-            className="w-16 h-16 md:w-24 md:h-24 object-cover rounded-full bg-blur absolute -bottom-8 left-4"
+            className="bg-blur w-16 h-16 md:w-24 md:h-24 object-cover rounded-full absolute -bottom-8 left-4"
           />
         </div>
         <div className="mt-12 px-4 flex flex-col gap-1">
@@ -75,7 +73,7 @@ const UserInfo = () => {
           </div>
         </div>
       </div>
-      <div className="p-4 ">
+      <div className="p-4 my-2">
       <h2 className="text-lg font-bold mb-3">Suggestions for you</h2>
       <ul className="flex flex-col gap-3">
         {suggestions?.map((user:any) => (
