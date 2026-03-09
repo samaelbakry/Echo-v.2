@@ -42,11 +42,12 @@ const UserInfo = () => {
     setChangePhoto(selectedFile)
   }
 
-function changeProfilePhotoHandler() {
+async function changeProfilePhotoHandler() {
   if (!changePhoto) return
   const formData = new FormData()
   formData.append("photo", changePhoto)
   changeProfilePhoto(formData)
+  
 }
     useEffect(() => {
     if(changePhoto){

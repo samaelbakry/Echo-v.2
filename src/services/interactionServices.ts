@@ -69,7 +69,7 @@ export async function sharePost(postId:string , shareText:string) {
 
 export async function uploadNewProfilePhoto(formData:FormData) {
     const token = localStorage.getItem("token")
-    const response = await axios.put(`${API_BASE_URL}users/upload-photo`, formData ,{
+    const response = await axios.put(`${API_BASE_URL}/users/upload-photo`, formData ,{
         headers:{
             Authorization:`Bearer ${token}`
         }

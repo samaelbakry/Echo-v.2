@@ -73,7 +73,7 @@ const CreatePost = () => {
     <>
       <div className="bg-blue-50/70 shadow rounded-xl p-4 flex items-center justify-between flex-wrap gap-2">
         <div className="space-x-2 flex items-center">
-          <img src={userData?.photo} alt={userData?.name} className="size-9 rounded-full"/>
+          <img src={userData?.photo} alt={userData?.name} className="size-9 rounded-full object-cover"/>
           <div>
             <span className="">{userData?.name} , </span>
             <span>what's happening?</span>
