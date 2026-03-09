@@ -13,7 +13,7 @@ import { followAction } from "@/services/interactionServices";
 import { Link } from "react-router-dom";
 
 
-const PostCardHeader = ({ post ,friendProfile }: { post: PostType ,  friendProfile?:boolean }) => {
+const PostCardHeader = ({ post , friendProfile }: { post: PostType ,  friendProfile?:boolean }) => {
 
   const [open, setOpen] = useState<boolean>(false);
   const [following, setFollowing] = useState()
