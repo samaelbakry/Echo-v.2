@@ -66,3 +66,13 @@ export async function sharePost(postId:string , shareText:string) {
     })
     return response.data
 }
+
+export async function uploadNewProfilePhoto(formData:FormData) {
+    const token = localStorage.getItem("token")
+    const response = await axios.put(`${API_BASE_URL}users/upload-photo`, formData ,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}

@@ -84,7 +84,7 @@ const FriendProfile = () => {
        <div className="col-span-1 md:col-span-2 bg-blur p-2 my-2">
             {isLoading ? [...Array(5)].map( ()=> <PostSkeleton />) :<>
             {friendPosts?.map((friendPost:PostType)=>(
-                <PostCard key={friendPost._id} post={friendPost} friendProfile/>
+                <PostCard key={friendPost._id} post={friendPost}/>
             ))}
             </> }
           </div>

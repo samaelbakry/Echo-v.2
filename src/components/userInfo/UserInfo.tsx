@@ -1,12 +1,16 @@
 import { getUserData } from "@/services/userServices";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FaUserCheck, FaUserFriends } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { getFollowSuggestions } from "@/services/interactionServices";
+import { getFollowSuggestions, uploadNewProfilePhoto } from "@/services/interactionServices";
 import fallBackImg from "../../assets/download (2).jpg"
+import { IoCameraOutline } from "react-icons/io5";
+import React, { useEffect, useState } from "react";
+
 
 const UserInfo = () => {
+  const [changePhoto, setChangePhoto] = useState<File | null>(null)
     const { data: userData } = useQuery({
     queryKey: ["getUserData"],
     queryFn: getUserData,
@@ -17,18 +21,50 @@ const UserInfo = () => {
     queryFn: getFollowSuggestions,
     select:(suggestions)=>suggestions?.data?.suggestions
   });
+
+  const inputControl = React.useRef<HTMLInputElement | null>(null)
+  const queryClient = useQueryClient()
+
+  const { mutate: changeProfilePhoto } = useMutation({
+  mutationFn: uploadNewProfilePhoto,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ["getUserData"] })
+  }
+})
+
+  function openFile(){
+    inputControl.current?.click()
+  }
+    function chooseFile(){
+    const files = inputControl.current?.files
+     if(!files || files.length === 0) return
+    const selectedFile = files[0]
+    setChangePhoto(selectedFile)
+  }
+
+function changeProfilePhotoHandler() {
+  if (!changePhoto) return
+  const formData = new FormData()
+  formData.append("photo", changePhoto)
+  changeProfilePhoto(formData)
+}
+    useEffect(() => {
+    if(changePhoto){
+        changeProfilePhotoHandler()
+    }
+  }, [changePhoto])
  
  
   return (
     <>
       <div className="my-1 p-1">
-        <div className="h-24 rounded-md relative ">
-         <img src={userData?.cover || fallBackImg} alt="cover" className="w-full h-full object-cover rounded-md"/>
-          <img
-            src={userData?.photo}
-            alt={userData?.name}
-            className="bg-blur w-16 h-16 md:w-24 md:h-24 object-cover rounded-full absolute -bottom-8 left-4"
-          />
+        <div className="h-24 rounded-md relative">
+         <img src={userData?.cover || fallBackImg } alt="cover" className="w-full h-full object-cover rounded-md"/>
+          <img src={changePhoto ? URL.createObjectURL(changePhoto) : userData?.photo}alt={userData?.name}className="bg-blur w-16 h-16 md:w-24 md:h-24 object-cover rounded-full absolute -bottom-8 left-4" />
+          <span className="absolute -bottom-5 left-25 bg-blue-200 text-blue-500 rounded-2xl block size-7 p-1 hover:bg-blue-800 hover:text-white cursor-pointer duration-500">
+            <IoCameraOutline onClick={openFile} className="text-xl" />
+            <input onChange={chooseFile} ref={inputControl} type="file" className="hidden" />
+          </span>
         </div>
         <div className="mt-12 px-4 flex flex-col gap-1">
             <Link to={"/userProfile"} className="cursor-pointer hover:text-blue-800 duration-500">

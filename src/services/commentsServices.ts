@@ -11,7 +11,7 @@ export async function getAllComments(id:string) {
     })
     return response.data
 }
-export async function createComment(postId:string , formData:any) {
+export async function createComment(postId:string , formData:FormData) {
     const token = localStorage.getItem("token")
     const response = await axios.post(`${API_BASE_URL}/posts/${postId}/comments`, formData, {
         headers:{
