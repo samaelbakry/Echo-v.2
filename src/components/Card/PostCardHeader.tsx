@@ -1,4 +1,4 @@
-import { getFriendsPosts, getFriendsProfile, getUserData } from "@/services/userServices";
+import { getUserData } from "@/services/userServices";
 import type { PostType } from "@/types/postsType";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 const PostCardHeader = ({ post ,friendProfile }: { post: PostType ,  friendProfile?:boolean }) => {
 
   const [open, setOpen] = useState<boolean>(false);
-  const [following, setfollowing] = useState()
+  const [following, setFollowing] = useState()
   const queryClient =useQueryClient()
  
   const { data: userData } = useQuery({
@@ -26,13 +26,13 @@ const PostCardHeader = ({ post ,friendProfile }: { post: PostType ,  friendProfi
   });
  
   const handleDelete = async () => {
-    const response =await deletePost(post._id)
+    await deletePost(post._id)
     toast.success("post deleted Successfully!")
     queryClient.invalidateQueries({queryKey:["getAllPosts"]})
   };
   const handleFollow = async () => {
     const response = await followAction(post.user._id)
-    setfollowing(response.data.following)
+    setFollowing(response.data.following)
     console.log(response);
     const action = response.data.following ? "followed" : "unfollowed"
     toast.success(`${action} ${post.user.name}`)

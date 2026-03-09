@@ -45,7 +45,7 @@ const CreatePost = () => {
     }
     setIsLoading(true)
     try {
-       const data = await createNewPost(formData)
+        await createNewPost(formData)
        toast.success('Your post was published')
       setOpen(false)
       queryClient.invalidateQueries({queryKey:["getAllPosts"]})

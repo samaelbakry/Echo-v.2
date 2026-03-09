@@ -38,7 +38,7 @@ const UpdatePostDialog = ({ post ,open , setOpen  }: { post: PostType , open: bo
     }
     try {
      setIsLoading(true)
-     const response = await updatePost(post._id, formData);
+      await updatePost(post._id, formData);
     toast.success("post updated Successfully!");
     queryClient.invalidateQueries({ queryKey: ["getAllPosts"] });
     setOpen(false);

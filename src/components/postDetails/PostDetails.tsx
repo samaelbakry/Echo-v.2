@@ -1,6 +1,5 @@
-import { getSinglePostId } from "@/services/postsServices";
 import type { PostType } from "@/types/postsType";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger,} from "@/components/ui/dialog";
 import PostCardHeader from "../Card/PostCardHeader";
@@ -18,11 +17,11 @@ const PostDetails = ({ post , comments}: { post: PostType , comments?:boolean })
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const queryClient =useQueryClient()
-    const { data } = useQuery({
-    queryKey: ["getSinglePost", post._id],
-    queryFn: () => getSinglePostId(post._id),
-    enabled: isOpen,
-  });
+  //   const { data } = useQuery({
+  //   queryKey: ["getSinglePost", post._id],
+  //   queryFn: () => getSinglePostId(post._id),
+  //   enabled: isOpen,
+  // });
 
   const [commentContent , setCommentContent] =useState<string>("")
   const [commentImage , setCommentImage] =useState<File | null >(null)
