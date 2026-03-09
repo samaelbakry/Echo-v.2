@@ -3,7 +3,7 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { loginSchema, type loginSchemaType } from "@/lib/AuthSchema.ts/authSchema";
 import { loginForm } from "@/services/authServices";
-import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate, } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 const Login = () => {
   const navigate = useNavigate()
 
-  const form = useForm({
+  const form = useForm<loginSchemaType>({
     mode:"all",
     defaultValues: {
       email: "",

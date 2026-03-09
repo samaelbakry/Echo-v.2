@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select";
 import { Controller, useForm } from "react-hook-form";
@@ -9,12 +9,10 @@ import { registerSchema, type registerSchemaType } from "@/lib/AuthSchema.ts/aut
 import { registerForm } from "@/services/authServices";
 import { toast } from "react-toastify";
 
-
-
 const Register = () => {
   const navigate = useNavigate()
 
-  const form = useForm({
+  const form = useForm<registerSchemaType>({
     mode:"all",
     defaultValues: {
       name: "",
