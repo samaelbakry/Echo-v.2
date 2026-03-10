@@ -20,6 +20,33 @@ export async function createComment(postId:string , formData:FormData) {
     })
     return response.data
 }
+export async function updateComment(postId:string , formData:FormData , commentId:string) {
+    const token = localStorage.getItem("token")
+    const response = await axios.put(`${API_BASE_URL}/posts/${postId}/comments/${commentId}`, formData, {
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}
+export async function deleteComment(postId:string , commentId:string) {
+    const token = localStorage.getItem("token")
+    const response = await axios.delete(`${API_BASE_URL}/posts/${postId}/comments/${commentId}`, {
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}
+export async function likeComment(postId:string , commentId:string) {
+    const token = localStorage.getItem("token")
+    const response = await axios.put(`${API_BASE_URL}/posts/${postId}/comments/${commentId}/like`,{}, {
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}
 
 
 
