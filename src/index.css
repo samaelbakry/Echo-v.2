@@ -115,7 +115,7 @@
 }
 @layer utilities{
     .bg-blur{
-        @apply bg-white/10 backdrop-blur-2xl rounded-2xl border border-white/30 shadow-2xl font-semibold
+        @apply bg-white/10 backdrop-blur-2xl rounded-xl border border-white/30 shadow-2xl font-semibold
     }
     .bg-blue-blur{
         @apply bg-blue-950/10 backdrop-blur-2xl rounded-2xl border border-white/30 shadow-2xl font-semibold
@@ -139,6 +139,10 @@
     .bookmarkedBtn{
          @apply  px-6 py-1 rounded-2xl bg-blue-200 duration-500 cursor-pointer shadow
     }
+    .active{
+        @apply bg-white/10 backdrop-blur-2xl rounded-xl border border-white/30 shadow-2xl font-semibold text-blue-500 p-2
+    }
+
 }
 
 @layer base {

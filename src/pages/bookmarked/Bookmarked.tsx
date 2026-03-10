@@ -13,7 +13,7 @@ const Bookmarked = () => {
   console.log(data);
   
   return <>
-  <div className="max-w-7xl mx-auto grid grid-cols-3 my-5 p-5 gap-5">
+  <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 my-5 p-5 gap-5">
     <div className="col-span-1 bg-blur self-start">
         <UserInfo/>
     </div>

@@ -29,7 +29,7 @@ const Login = () => {
 
     if(response.data.success){
       setTimeout(() => {
-       navigate("/")
+       navigate("/home")
        localStorage.setItem("token" ,response.data.data.token)
       }, 1000);
       toast.success("Account loggedin Successfully !" , {
