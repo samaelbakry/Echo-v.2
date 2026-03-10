@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react"
 
 type contextType = {
-    isLoggedIn : Boolean,
+    isLoggedIn : boolean,
     setIsLoggedIn:React.Dispatch<React.SetStateAction<boolean>>
 }
 

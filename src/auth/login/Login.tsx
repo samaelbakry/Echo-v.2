@@ -1,22 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { tokenContext } from "@/context/TokenContextProvider";
 import { loginSchema, type loginSchemaType } from "@/lib/AuthSchema.ts/authSchema";
 import { loginForm } from "@/services/authServices";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate, } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate()
+  const {setIsLoggedIn }=useContext(tokenContext)
 
   const form = useForm<loginSchemaType>({
     mode:"all",
     defaultValues: {
       email: "",
       password: "",
-  
     },
     resolver:zodResolver(loginSchema)
   });
@@ -28,13 +30,13 @@ const Login = () => {
     console.log(response);
 
     if(response.data.success){
-      setTimeout(() => {
-       navigate("/home")
-       localStorage.setItem("token" ,response.data.data.token)
-      }, 1000);
-      toast.success("Account loggedin Successfully !" , {
+     
+      localStorage.setItem("token" ,response.data.data.token)
+      toast.success("Account logged in Successfully !" , {
         position:"top-center"
       })
+      setIsLoggedIn(true)
+      navigate("/home")
     }
   } catch (error : any) {
       console.log(error.response.data.error);
