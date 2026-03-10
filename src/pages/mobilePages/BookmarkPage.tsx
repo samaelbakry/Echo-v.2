@@ -1,5 +1,4 @@
 import Bookmarked from "../bookmarked/Bookmarked"
-
 const BookmarkPage = () => {
   return (
     <div>
