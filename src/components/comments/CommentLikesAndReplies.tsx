@@ -86,7 +86,7 @@ const CommentLikesAndReplies = ({post,comment,}: {comment: CommentType;post: Pos
       </div>
        {openRepliesInput && <>
         <div className="flex items-center gap-2">
-          <Input  value={replyInputContent}  onChange={(e)=>(setReplyInputContent(e.target.value))} className="flex-1 rounded-2xl border-gray-300 shadow"/> 
+          <Input value={replyInputContent}  onChange={(e)=>(setReplyInputContent(e.target.value))} className="flex-1 rounded-2xl border-gray-300 shadow"/> 
            <button onClick={()=>sendCommentReply(post._id , comment._id)} className="bg-blue-200 p-1 rounded-2xl hover:bg-blue-700 hover:text-white duration-500 cursor-pointer shadow">
                  <IoIosSend className="text-xl" />  
            </button>

@@ -15,3 +15,13 @@ export async function loginForm(formData:loginSchemaType) {
     const data = await axios.post(`${API_BASE_URL}/users/signin` , formData)
     return data
 }
+
+export async function changeUserPassword(passwordObj:{password?:string , newPassword?:string}) {
+    const token = localStorage.getItem("token")
+    const data = await axios.patch(`${API_BASE_URL}/users/change-password` , passwordObj ,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return data
+}

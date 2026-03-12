@@ -1,14 +1,11 @@
-import {
-  getAllNotifications,
-  markAllNotificationsAsRead,
-} from "@/services/notificationsServices";
+import {getAllNotifications,markAllNotificationsAsRead,} from "@/services/notificationsServices";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Separator } from "../ui/separator";
 import type { NotificationType } from "@/types/notificationsType";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { Badge } from "../ui/badge";
+import FollowSuggestions from "../followSuggestions/FollowSuggestions";
 
 const Notifications = () => {
   const { data } = useQuery({
@@ -43,7 +40,6 @@ const Notifications = () => {
                   <HiOutlineBellAlert className="text-red-500 text-sm" />
                 </Badge>
               </span>
-
               <span className="text-xs text-gray-500">
                 you have {data?.length}{" "}
                 {Number(data?.length) <= 1
@@ -51,15 +47,11 @@ const Notifications = () => {
                   : "new notifications"}
               </span>
             </div>
-
             <IoCheckmarkDoneOutline
               className="text-xl cursor-pointer text-gray-600 hover:text-blue-600 transition"
               onClick={markAllAsRead}
             />
           </div>
-
-          <Separator orientation="horizontal" className="mb-2" />
-
           <div className="flex flex-col gap-2 mt-2">
             {data?.map((notification: NotificationType, index: number) => (
               <div
@@ -96,6 +88,8 @@ const Notifications = () => {
           </div>
         </>
       )}
+       <h2 className="text-lg font-bold m-3">Suggestions for you</h2>
+      <FollowSuggestions/>
     </>
   );
 };

@@ -13,7 +13,6 @@ const Replies = ({ postId, commentId }:{postId:string , commentId:string}) => {
 
  return (
    <div className="ml-2 mt-3 flex flex-col gap-3">
-    {/* {replies >=1 ? "view replies" : ""} */}
     {isLoading ? <p className="flex items-center gap-2 bg-blue p-2"> <Spinner/>Loading... </p>:  <>
     {replies.map((reply:any) => (
        <div key={reply._id} className="flex gap-2">
