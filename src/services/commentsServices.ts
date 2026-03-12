@@ -47,6 +47,24 @@ export async function likeComment(postId:string , commentId:string) {
     })
     return response.data
 }
+export async function createReply(postId:string , commentId:string , formData:FormData) {
+    const token = localStorage.getItem("token")
+    const response = await axios.post(`${API_BASE_URL}/posts/${postId}/comments/${commentId}/replies`,formData, {
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}
+export async function getCommentReplies(postId:string , commentId:string) {
+    const token = localStorage.getItem("token")
+    const response = await axios.get(`${API_BASE_URL}/posts/${postId}/comments/${commentId}/replies?page=1&limit=10`,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}
 
 
 

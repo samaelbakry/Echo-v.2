@@ -46,9 +46,12 @@ const Comments = ({ post }: { post: PostType }) => {
                   className="w-8 h-8 rounded-full border border-violet-900 shrink-0"
                 />
                 <div className="flex flex-col gap-2 flex-1">
-                  <span className="font-semibold text-gray-800">
-                    {comment?.commentCreator?.name}
-                  </span>
+                  <div className="flex items-center justify-between font-semibold text-gray-800">
+                    <span>{comment?.commentCreator?.name}</span>
+                    <div className="flex items-center gap-2">
+                    <CommentEditAndDelete setEditingCommentId={setEditingCommentId} setEditContent={setEditContent} comment={comment} post={post} />
+                    </div>
+                  </div>
                   {editingCommentId === comment._id ? (
                     <>
                       <div className="flex gap-2">
@@ -85,7 +88,6 @@ const Comments = ({ post }: { post: PostType }) => {
                   )}
                 <CommentLikesAndReplies comment={comment} post={post}/>
                 </div>
-                <CommentEditAndDelete setEditingCommentId={setEditingCommentId} setEditContent={setEditContent} comment={comment} post={post} />
               </div>
             </React.Fragment>
           ))}
