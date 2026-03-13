@@ -102,7 +102,7 @@ const App = () => {
 
   return (
     <>
-      <div className="bg-blue-100 dark:bg-slate-800  min-h-screen">
+      <div className="bg-blue-100 dark:bg-slate-800 min-h-screen">
         <RouterProvider router={router} />
       </div>
     </>

@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App.tsx";
 import TokenContextProvider from "./context/TokenContextProvider.tsx";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import ThemeContextProvider from "./context/themeContextProvider.tsx";
+import ThemeContextProvider from "./context/ThemeContextProvider.tsx";
 
 const queryClient = new QueryClient()
 
