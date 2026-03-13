@@ -49,7 +49,7 @@ const Register = () => {
   return (
     <>
       <div className=" text-gray-700 p-3 ">
-        <h2 className="md:text-2xl bg-linear-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent font-bold text-left my-3">
+        <h2 className="md:text-2xl text-blue-800 font-bold text-left my-3">
           New to echo ? join us now !
         </h2>
         <form action="" className="space-y-3" onSubmit={form.handleSubmit(sendFormData)}>

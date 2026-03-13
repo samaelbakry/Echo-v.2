@@ -5,10 +5,10 @@ const AuthLayout = () => {
     <>
       <div className="max-w-7xl mx-auto my-20 grid grid-cols-1 md:grid-cols-4 bg-auth">
         <div className="col-span-1 md:col-span-2 p-5 bg-blur relative">
-          <h1 className="text-blue-800 md:text-4xl font-bold my-5">
+          <h1 className="bg-linear-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent md:text-4xl font-bold my-5">
             Welcome to ECHO
           </h1>
-          <p className="text-base font-bold uppercase text-gray-600">your digital diary</p>
+          <p className="text-base font-bold uppercase bg-linear-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">your digital diary</p>
           <p className="text-gray-500 p-1">
             A refreshed experience built with cleaner design, smoother
             interactions, and powerful new features. ECHO is evolving — bringing
