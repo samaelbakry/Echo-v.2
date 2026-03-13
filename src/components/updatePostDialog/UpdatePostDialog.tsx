@@ -1,14 +1,14 @@
 import {Dialog,DialogContent,DialogDescription,DialogHeader,DialogTitle,} from "../ui/dialog";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserData } from "@/services/userServices";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import type { PostType } from "@/types/postsType";
 import { updatePost } from "@/services/postsServices";
 import { toast } from "react-toastify";
 import { TiAttachment } from "react-icons/ti";
 import { Spinner } from "../ui/spinner";
+import { useUserDataQuery } from "@/hooks/useUserDataQuery/useUserDataQuery";
 
 const UpdatePostDialog = ({ post ,open , setOpen  }: { post: PostType , open: boolean , setOpen: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
@@ -50,11 +50,7 @@ const UpdatePostDialog = ({ post ,open , setOpen  }: { post: PostType , open: bo
     
   };
 
-  const { data: userData } = useQuery({
-    queryKey: ["getUserData"],
-    queryFn: getUserData,
-    select: (data) => data?.data?.data?.user,
-  });
+  const {userData} = useUserDataQuery()
 
   return (
     <>

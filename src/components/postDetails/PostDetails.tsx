@@ -17,11 +17,6 @@ const PostDetails = ({ post , comments}: { post: PostType , comments?:boolean })
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const queryClient =useQueryClient()
-  //   const { data } = useQuery({
-  //   queryKey: ["getSinglePost", post._id],
-  //   queryFn: () => getSinglePostId(post._id),
-  //   enabled: isOpen,
-  // });
 
   const [commentContent , setCommentContent] =useState<string>("")
   const [commentImage , setCommentImage] =useState<File | null >(null)
@@ -72,7 +67,7 @@ const PostDetails = ({ post , comments}: { post: PostType , comments?:boolean })
         <DialogTrigger className="cursor-pointer">
            {comments ? "Comments" : "view"}
         </DialogTrigger>
-        <DialogContent className="md:max-w-2xl bg-blue-100 max-h-[90vh] flex flex-col">
+        <DialogContent className="md:max-w-2xl bg-blue-100 max-h-[90vh] dark:bg-slate-500 flex flex-col">
           <DialogHeader>
             <DialogTitle>
               <PostCardHeader post={post}/>
@@ -81,7 +76,7 @@ const PostDetails = ({ post , comments}: { post: PostType , comments?:boolean })
              <div className="flex-1 overflow-y-auto px-4 no-scrollbar">
                <PostCardBody post={post}/>
               <div className="flex items-center  my-3 gap-2">
-                <Input value={commentContent} onChange={(e)=>getComment(e)} className="flex-1 rounded-2xl border-gray-300 shadow"/>
+                <Input value={commentContent} onChange={(e)=>getComment(e)} className="flex-1 rounded-2xl dark:text-white border-gray-300 shadow"/>
                  <button onClick={makeInputOpen} className="bg-blue-200 p-1 rounded-2xl hover:bg-blue-700 hover:text-white duration-500 cursor-pointer shadow">
                   <input ref={attachCommentImage} onChange={chooseFile} type="file" className="hidden"/>
                   <TiAttachment  className="text-3xl" />

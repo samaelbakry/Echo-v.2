@@ -1,5 +1,6 @@
 import { getFollowSuggestions } from "@/services/interactionServices";
 import { useQuery } from "@tanstack/react-query";
+import FollowBtn from "../followBtn/FollowBtn";
 
 const FollowSuggestions = () => {
   const { data: suggestions } = useQuery({
@@ -13,7 +14,7 @@ const FollowSuggestions = () => {
         {suggestions?.map((user: any) => (
           <li
             key={user._id}
-            className="flex items-center justify-between p-2 rounded hover:bg-blue-50 hover:rounded-xl"
+            className="flex items-center justify-between p-2 rounded hover:bg-blue-50 hover:rounded-xl dark:hover:bg-slate-500 dark:hover:text-white/80 duration"
           >
             <div className="flex items-center gap-3">
               <img
@@ -24,13 +25,13 @@ const FollowSuggestions = () => {
               <div className="flex flex-col">
                 <span className="font-medium text-sm">{user.name}</span>
                 {user.username && (
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-gray-500 dark:text-white/40">
                     @{user.username}
                   </span>
                 )}
               </div>
             </div>
-            <button className="followBtn">Follow</button>
+            <FollowBtn userId={user._id} userName={user.name} />
           </li>
         ))}
       </ul>

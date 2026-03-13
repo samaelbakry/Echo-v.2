@@ -1,5 +1,4 @@
-import { getUserData } from "@/services/userServices";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FaUserCheck, FaUserFriends } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -7,16 +6,13 @@ import { uploadNewProfilePhoto } from "@/services/interactionServices";
 import fallBackImg from "../../assets/download (2).jpg"
 import { IoCameraOutline } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
+import { useUserDataQuery } from "@/hooks/useUserDataQuery/useUserDataQuery";
 
 const UserInfo = () => {
-  const [changePhoto, setChangePhoto] = useState<File | null>(null)
-    const { data: userData } = useQuery({
-    queryKey: ["getUserData"],
-    queryFn: getUserData,
-    select: (data) => data?.data?.data?.user,
-  });
-    
 
+  const [changePhoto, setChangePhoto] = useState<File | null>(null)
+  const {userData} = useUserDataQuery()
+  
   const inputControl = React.useRef<HTMLInputElement | null>(null)
   const queryClient = useQueryClient()
 
@@ -63,15 +59,15 @@ async function changeProfilePhotoHandler() {
           </span>
         </div>
         <div className="mt-12 px-4 flex flex-col gap-1">
-            <Link to={"/userProfile"} className="cursor-pointer hover:text-blue-800 duration-500">
-             <h2 className="text-lg font-semibold">{userData?.name}</h2>
+            <Link to={"/userProfile"}>
+             <h2 className="text-lg font-semibold dark:text-white/80 dark:hover:text-blue-800 duration-500 hover:text-blue-800">{userData?.name}</h2>
             </Link>
-          <span className="text-sm text-gray-500">@{userData?.username}</span>
-          <span className="text-sm text-gray-600">{userData?.email}</span>
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-gray-500 dark:text-white/80">@{userData?.username}</span>
+          <span className="text-sm text-gray-600 dark:text-white/80">{userData?.email}</span>
+          <span className="text-sm text-gray-600 dark:text-white/80">
             Gender: {userData?.gender}
           </span>
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-gray-600 dark:text-white/80">
             Birth date: {new Date(userData?.dateOfBirth).toLocaleDateString()}
           </span>
           <div className="flex flex-col gap-3 mt-3 text-sm">

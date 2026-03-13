@@ -1,44 +1,29 @@
-import { getUserData } from "@/services/userServices";
 import type { PostType } from "@/types/postsType";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger,} from "../ui/dropdown-menu";
-import {  useState } from "react";
+import { useState } from "react";
 import { deletePost } from "@/services/postsServices";
 import { toast } from "react-toastify";
 import UpdatePostDialog from "../updatePostDialog/UpdatePostDialog";
-import { followAction } from "@/services/interactionServices";
 import { Link } from "react-router-dom";
+import { useUserDataQuery } from "@/hooks/useUserDataQuery/useUserDataQuery";
+import FollowBtn from "../followBtn/FollowBtn";
 
-
-const PostCardHeader = ({ post , friendProfile }: { post: PostType ,  friendProfile?:boolean }) => {
+const PostCardHeader = ({post,friendProfile,}: {  post: PostType;  friendProfile?: boolean;}) => {
 
   const [open, setOpen] = useState<boolean>(false);
-  const [following, setFollowing] = useState()
-  const queryClient =useQueryClient()
- 
-  const { data: userData } = useQuery({
-    queryKey: ["getUserData"],
-    queryFn: getUserData,
-    select: (data) => data?.data?.data?.user,
-  });
- 
+  const queryClient = useQueryClient();
+  const { userData } = useUserDataQuery();
+
   const handleDelete = async () => {
-    await deletePost(post._id)
-    toast.success("post deleted Successfully!")
-    queryClient.invalidateQueries({queryKey:["getAllPosts"]})
+    await deletePost(post._id);
+    toast.success("post deleted Successfully!");
+    queryClient.invalidateQueries({ queryKey: ["getAllPosts"] });
   };
-  const handleFollow = async () => {
-    const response = await followAction(post.user._id)
-    setFollowing(response.data.following)
-    console.log(response);
-    const action = response.data.following ? "followed" : "unfollowed"
-    toast.success(`${action} ${post.user.name}`)
-    queryClient.invalidateQueries({queryKey:["getUserData"]})
-  };
- 
+
   return (
     <>
       <div className="flex items-center justify-between p-4">
@@ -49,20 +34,13 @@ const PostCardHeader = ({ post , friendProfile }: { post: PostType ,  friendProf
             alt={post?.user?.name}
           />
           <div className="flex flex-col gap-1">
-            <div className="capitalize flex items-center gap-2 text-blue-900 text-sm">
+            <div className="capitalize flex items-center gap-2 text-blue-900 text-sm dark:text-blue-900 font-bold">
               <Link to={`/profile/${post?.user?._id}`}>
-              {post?.user?.name} - @{post?.user?.username} 
+                {post?.user?.name} - @{post?.user?.username}
               </Link>
-              {post?.user?._id == userData?._id  ? " " :<>
-               <button className={`${following ? "followedBtn": "followBtn" }`} onClick={handleFollow}>
-                 <span className="font-semibold flex items-center gap-1">
-                    {following ? (<> Unfollow</>) : "Follow"}
-                  </span>
-              </button>
-              </>}
-             
+              <FollowBtn userId={post.user._id} userName={post.user.name}/>
             </div>
-            <span className="text-sm">
+            <span className="text-sm dark:text-white/80">
               {new Date(post.createdAt).toLocaleString("en-us", {
                 timeStyle: "short",
                 dateStyle: "medium",
@@ -79,12 +57,18 @@ const PostCardHeader = ({ post , friendProfile }: { post: PostType ,  friendProf
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem
-                    onClick={() => {setOpen((open)=>!open)}} >
+                    onClick={() => {
+                      setOpen(true);
+                    }}
+                  >
                     <CiEdit />
                     Edit
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem variant="destructive" onClick={handleDelete}>
+                  <DropdownMenuItem
+                    variant="destructive"
+                    onClick={handleDelete}
+                  >
                     <MdDelete />
                     Delete
                   </DropdownMenuItem>
@@ -94,8 +78,11 @@ const PostCardHeader = ({ post , friendProfile }: { post: PostType ,  friendProf
           )}
         </div>
       </div>
-      {friendProfile ? " " : <UpdatePostDialog post={post} open={open} setOpen={setOpen}/> }
-     
+      {friendProfile ? (
+        " "
+      ) : (
+        <UpdatePostDialog post={post} open={open} setOpen={setOpen} />
+      )}
     </>
   );
 };

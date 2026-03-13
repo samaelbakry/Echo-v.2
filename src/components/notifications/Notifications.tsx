@@ -26,7 +26,7 @@ const Notifications = () => {
   return (
     <>
       {data?.length === 0 ? (
-        <span className="text-center text-sm text-gray-500 py-6">
+        <span className="text-center text-sm text-gray-500 py-6 dark:text-white/80">
           <HiOutlineBellAlert className=" inline-block mr-2  text-sm" />
           No notifications yet
         </span>
@@ -34,13 +34,13 @@ const Notifications = () => {
         <>
           <div className="flex items-center justify-between mb-3">
             <div className="flex flex-col gap-1">
-              <span className="flex items-center gap-2 font-medium text-blue-900">
+              <span className="flex items-center gap-2 font-medium text-blue-900 dark:text-slate-100">
                 Notifications
                 <Badge className="bg-red-100 text-red-600 px-2 py-0.5">
                   <HiOutlineBellAlert className="text-red-500 text-sm" />
                 </Badge>
               </span>
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-gray-500 dark:text-slate-400">
                 you have {data?.length}{" "}
                 {Number(data?.length) <= 1
                   ? "notification"
@@ -48,15 +48,14 @@ const Notifications = () => {
               </span>
             </div>
             <IoCheckmarkDoneOutline
-              className="text-xl cursor-pointer text-gray-600 hover:text-blue-600 transition"
+              className="text-xl cursor-pointer text-gray-600 hover:text-blue-600 transition dark:text-slate-100 dark:hover:text-blue-600"
               onClick={markAllAsRead}
             />
           </div>
           <div className="flex flex-col gap-2 mt-2">
             {data?.map((notification: NotificationType, index: number) => (
-              <div
-                key={index}
-                className="flex items-start gap-3 bg-blue-50/70 hover:bg-blue-50 p-3 rounded-xl transition"
+              <div key={index}
+                className="flex items-start gap-3 bg-blue-50/70 cursor-pointer hover:bg-blue-50 dark:hover:bg-slate-500 p-3 rounded-xl transition"
               >
                 <img
                   src={notification.actor.photo}
@@ -70,7 +69,7 @@ const Notifications = () => {
                       {notification.actor.name}
                     </span>
 
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-gray-500 dark:text-slate-700">
                       {new Date(notification.createdAt).toLocaleString(
                         "en-us",
                         {

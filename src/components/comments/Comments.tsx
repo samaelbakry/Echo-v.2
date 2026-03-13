@@ -27,6 +27,7 @@ const Comments = ({ post }: { post: PostType }) => {
   });
   return (
     <>
+    
       {isLoading ? (
         <>
           <p className="text-center text-base bg-blur text-gray-700 p-3 my-3">
@@ -35,19 +36,20 @@ const Comments = ({ post }: { post: PostType }) => {
             Loading....
           </p>
         </>
-      ) : (
+      ) : allComments?.length ===0 ? <p className="p-2 text-center font-bold dark:text-slate-700 bg-blur">No comments yet</p> 
+        :(
         <>
           {allComments.map((comment) => (
             <React.Fragment key={comment._id}>
-              <div className="flex gap-3 m-2 bg-blur rounded-2xl p-5 text-gray-600">
+              <div className="flex gap-3 m-2 bg-blur rounded-2xl p-5 text-gray-600 dark:text-white/80">
                 <img
                   src={comment.commentCreator.photo}
                   alt={comment?.commentCreator?.name}
-                  className="w-8 h-8 rounded-full border border-violet-900 shrink-0"
+                  className="w-8 h-8 rounded-full shrink-0"
                 />
                 <div className="flex flex-col gap-2 flex-1">
                   <div className="flex items-center justify-between font-semibold text-gray-800">
-                    <span>{comment?.commentCreator?.name}</span>
+                    <span className="dark:text-white/80">{comment?.commentCreator?.name}</span>
                     <div className="flex items-center gap-2">
                     <CommentEditAndDelete setEditingCommentId={setEditingCommentId} setEditContent={setEditContent} comment={comment} post={post} />
                     </div>

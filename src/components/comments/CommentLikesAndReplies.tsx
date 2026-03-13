@@ -72,15 +72,15 @@ const CommentLikesAndReplies = ({post,comment,}: {comment: CommentType;post: Pos
 
   return (
     <>
-      <div className="flex items-center gap-2 text-sm text-gray-500">
+      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-white/80">
         <button
-          className={`flex items-center gap-1 cursor-pointer ${isLiked ? "text-blue-600 font-semibold" : ""}`}
+          className={`flex items-center gap-1 cursor-pointer  duration-500 hover:text-blue-800 ${isLiked ? "text-blue-600 font-semibold" : ""}`}
           onClick={() => {handleLikeComment(post._id, comment._id);}}
         >
           👍{isLiked ? "liked" : "like"}
           <span>{commentLikesCount}</span>
         </button>
-        <button className={`flex items-center gap-1 hover:text-blue-600 ${openRepliesInput ? "text-blue-600"  : ""}`} onClick={()=>{setOpenRepliesInput((open)=>(!open))}}>
+        <button className={`flex items-center gap-1 duration-500 hover:text-blue-800 ${openRepliesInput ? "text-blue-600"  : ""}`} onClick={()=>{setOpenRepliesInput((open)=>(!open))}}>
           💬 Reply
         </button>
       </div>
@@ -96,7 +96,7 @@ const CommentLikesAndReplies = ({post,comment,}: {comment: CommentType;post: Pos
            </button>
         </div>
         </>}
-        { replies?.length >=1 ? <button className="text-gray-600 font-bold cursor-pointer flex items-center gap-1" onClick={()=>{setOpenReplies((open)=>(!open))}}>View replies <RiArrowDownDoubleFill /> </button>: ""}
+        {replies?.length >=1 ? <button className="text-gray-600  dark:text-slate-700 font-bold cursor-pointer flex items-center gap-1" onClick={()=>{setOpenReplies((open)=>(!open))}}>View replies <RiArrowDownDoubleFill /> </button>: ""}
         {openReplies && <Replies commentId={comment._id} postId={post._id} />}
 
     </>

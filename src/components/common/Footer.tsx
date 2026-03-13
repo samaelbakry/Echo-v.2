@@ -2,7 +2,7 @@
 const Footer = () => {
   return (
     <>
-      <footer className="flex items-center justify-center">
+      <footer className="flex items-center justify-center ">
         <span className="font-semibold uppercase md:text-lg text-xs">
           ©2026 [ECHO]. All rights reserved.
         </span>
@@ -12,3 +12,4 @@ const Footer = () => {
 };
 
 export default Footer;
+//fixed bottom-0 left-0 w-full

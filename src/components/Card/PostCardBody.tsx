@@ -3,7 +3,7 @@ import type { PostType } from "@/types/postsType"
 const PostCardBody = ( {post}:{post:PostType} ) => {
   return <>
   <div className='flex flex-col gap-2 items-center justify-center'>
-    <div className="font-semibold text-xl my-5 flex items-center">{post?.body}</div>
+    <div className="font-semibold text-xl my-5 flex items-center dark:text-white/80">{post?.body}</div>
    {post?.sharedPost?.body && (
   <div className="border border-gray-300 rounded-xl p-3 mx-5 w-full">
     <div className="flex items-center gap-2 mb-2">

@@ -44,9 +44,9 @@ const PostLikesDialog = ({likesCount,post,}: {likesCount: number;post: PostType;
             <AiFillLike className="text-blue-800" />
           </button>
         </DialogTrigger>
-        <DialogContent className="bg-blue-100">
+        <DialogContent className="bg-blue-100 dark:bg-slate-500">
           <DialogHeader>
-            <DialogTitle>Post likes</DialogTitle>
+            <DialogTitle className="dark:text-white/80">Post likes</DialogTitle>
           </DialogHeader>
           <DialogDescription>
             {isLoading ? (
@@ -73,16 +73,16 @@ const PostLikesDialog = ({likesCount,post,}: {likesCount: number;post: PostType;
                           ❤
                         </Badge>
                       </div>
-                      <span className="font-medium capitalize text-gray-800">
+                      <span className="font-medium capitalize text-gray-800 dark:text-white/80">
                         {user.name}
                       </span>
                     </div>
-                    <span>liked this post</span>
+                    <span className="dark:text-white/80">liked this post</span>
                   </div>
                 ))}
               </>
             )}
-            {likes?.length === 0 && <p>No Likes for this post</p>}
+            {likes?.length === 0 && <p className="dark:text-white/80">No Likes for this post</p>}
           </DialogDescription>
         </DialogContent>
       </Dialog>

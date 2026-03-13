@@ -12,13 +12,12 @@ import SharePostDialog from "../sharePostDialog/SharePostDialog";
 import PostLikesDialog from "../postLikesDialog/PostLikesDialog";
 
 const PostCardFooter = ({ post }: { post: PostType }) => {
-
-  const [isLiked, setIsLiked] = useState(()=>{
-    const storedLikes = localStorage.getItem(`liked-${post._id}`)
-     return storedLikes ? JSON.parse(storedLikes) : false;
+  const [isLiked, setIsLiked] = useState(() => {
+    const storedLikes = localStorage.getItem(`liked-${post._id}`);
+    return storedLikes ? JSON.parse(storedLikes) : false;
   });
-  const [isBookmarked, setIsBookmarked] = useState(()=>{
-    const storedPosts = localStorage.getItem(`saved-${post._id}`)
+  const [isBookmarked, setIsBookmarked] = useState(() => {
+    const storedPosts = localStorage.getItem(`saved-${post._id}`);
     return storedPosts ? JSON.parse(storedPosts) : false;
   });
   const [likesCount, setLikesCount] = useState<number>(post.likesCount);
@@ -41,27 +40,30 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
       console.log(error);
     }
   }
-   const { data: userData } = useQuery({
+  const { data: userData } = useQuery({
     queryKey: ["getUserData"],
     queryFn: getUserData,
     select: (data) => data?.data?.data?.user,
   });
+
   useEffect(() => {
-   localStorage.setItem(`liked-${post._id}`, JSON.stringify(isLiked))
-   localStorage.setItem(`saved-${post._id}`, JSON.stringify(isBookmarked))
-  }, [isLiked,isBookmarked,post._id])
-  
+    localStorage.setItem(`liked-${post._id}`, JSON.stringify(isLiked));
+    localStorage.setItem(`saved-${post._id}`, JSON.stringify(isBookmarked));
+  }, [isLiked, isBookmarked, post._id]);
+
   return (
     <>
-      <div className="flex items-center justify-between p-5">
+      <div className="flex items-center justify-between md:p-5">
         <span className="flex items-center gap-2">
-          <PostLikesDialog  likesCount={likesCount} post={post}/>
+          <PostLikesDialog likesCount={likesCount} post={post} />
         </span>
         <span
           className={`flex items-center gap-2 ${post.commentsCount >= 2 ? "text-blue-900" : ""}`}
         >
           <span className="cursor-pointer">
-            {post.commentsCount <= 1 ? ("comment") : (
+            {post.commentsCount <= 1 ? (
+              "comment"
+            ) : (
               <span>{post.commentsCount} comments</span>
             )}
           </span>
@@ -69,29 +71,41 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
           {post.commentsCount >= 2 && <PostDetails post={post} />}
         </span>
       </div>
-      <div className="flex items-center md:justify-between md:p-3 flex-wrap justify-center p-0 gap-1">
+      <div className="flex items-center justify-between md:p-3 max-w-6xl gap-1 my-1">
         <button
-          className={`flex items-center gap-2 ${isLiked ? "liked" : "reactionsBtn"} `}
-          onClick={() => addNewLike(post._id)}>
-          {isLiked ? "liked" : "like"}
-          <AiFillLike />
-        </button>
-        <div className="flex items-center gap-2 reactionsBtn cursor-pointer">
-          <AiOutlineComment />
-          <PostDetails post={post} comments />
-        </div>
-        {post?.user?.name === userData?.name ? " " : <>
-        <SharePostDialog post={post}/>
-        <button
-          className={`flex items-center gap-2  ${isBookmarked ? "bookmarkedBtn" : "reactionsBtn"}`}
-          onClick={() => handleBookmark(post._id)}
+          className={`flex-1 flex items-center justify-center gap-1 ${isLiked ? "liked" : "reactionsBtn"}`}
+          onClick={() => addNewLike(post._id)}
         >
-          {isBookmarked ? "Saved" : "Save"}
-          <GoBookmarkFill
-            className={`${isBookmarked ? "text-blue-700 fill-blue-700" : ""}`}
-          />
+          <AiFillLike />
+          <span className="hidden sm:inline">{isLiked ? "Liked" : "Like"}</span>
         </button>
-        </>}
+
+        <div className="flex-1 flex items-center justify-center gap-1 reactionsBtn cursor-pointer">
+          <AiOutlineComment />
+          <span className="hidden sm:inline">
+            <PostDetails post={post} comments />
+          </span>
+        </div>
+
+        {post?.user?.name === userData?.name ? null : (
+          <>
+            <div className="flex-1 flex justify-center">
+              <SharePostDialog post={post} />
+            </div>
+
+            <button
+              className={`flex-1 flex items-center justify-center gap-1 ${isBookmarked ? "bookmarkedBtn" : "reactionsBtn"}`}
+              onClick={() => handleBookmark(post._id)}
+            >
+              <GoBookmarkFill
+                className={`${isBookmarked ? "text-blue-700 fill-blue-700 dark:fill-white" : ""}`}
+              />
+              <span className="hidden sm:inline">
+                {isBookmarked ? "Saved" : "Save"}
+              </span>
+            </button>
+          </>
+        )}
       </div>
       {post.topComment && (
         <>
@@ -115,9 +129,7 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
           </div>
         </>
       )}
-      <div>
-
-      </div>
+      <div></div>
     </>
   );
 };

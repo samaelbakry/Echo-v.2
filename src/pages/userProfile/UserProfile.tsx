@@ -4,8 +4,9 @@ import PostSkeleton from "@/components/postSkeleton/PostSkeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import UserInfo from "@/components/userInfo/UserInfo";
+import { useUserDataQuery } from "@/hooks/useUserDataQuery/useUserDataQuery";
 import { changeUserPassword } from "@/services/authServices";
-import { getUserData, getUserPosts } from "@/services/userServices";
+import { getUserPosts } from "@/services/userServices";
 import type { PostType } from "@/types/postsType";
 import { useQuery, useQueryClient} from "@tanstack/react-query";
 import { useRef, useState } from "react";
@@ -14,19 +15,18 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const UserProfile = () => {
+  
   const navigate = useNavigate()
   const queryClient =useQueryClient()
-  const { data: userData } = useQuery({
-    queryKey: ["getUserData"],
-    queryFn: getUserData,
-    select: (data) => data?.data?.data?.user,
-  });
+  const{ userData} = useUserDataQuery()
+ 
   const { data: userPost, isLoading } = useQuery({
     queryKey: ["getUserPosts", userData?._id],
     queryFn: () => getUserPosts(userData!._id),
     enabled: !!userData,
     select: (data) => data?.data?.data?.posts,
   });
+
   const [openSettings, setOpenSettings] = useState(false);
   const passwordInput = useRef<HTMLInputElement | null>(null);
   const newPasswordInput = useRef<HTMLInputElement | null>(null);
@@ -53,7 +53,7 @@ const UserProfile = () => {
         <div className="col-span-1 md:col-span-2 bg-blur self-start">
           <UserInfo />
           <div className="p-3 m-3">
-            <div className="flex items-center justify-between cursor-pointer mb-3" onClick={() => setOpenSettings((open) => !open)}>
+            <div className="flex items-center justify-between cursor-pointer mb-3 dark:text-white/80" onClick={() => setOpenSettings((open) => !open)}>
               <span>change your password ? </span>
               <IoSettingsSharp />
             </div>
@@ -69,13 +69,14 @@ const UserProfile = () => {
                   className="flex-1 rounded-xl border-gray-300 shadow mb-2"
                   placeholder="New password"
                 />
-                <Button className="w-fit mx-2 bg-blue-900 mt-2" onClick={handleChangePassword}>Change</Button>
+                <Button className="w-fit mx-2 bg-blue-900 mt-2 dark:bg-slate-200" onClick={handleChangePassword}>Change</Button>
               </>
             )}
           </div>
         </div>
         <div className="col-span-1 md:col-span-4 bg-blur p-2 my-2">
           <CreatePost />
+          {userPost?.length === 0 &&<p className="bg-blur p-3 my-2 text-center md:text-xl">No posts yet...</p>}
           {isLoading ? (
             [...Array(5)].map(() => <PostSkeleton />)
           ) : (

@@ -39,17 +39,19 @@ const SharePostDialog = ({post}: {post: PostType;}) => {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <button className="flex items-center gap-2 reactionsBtn">
+            <span className="hidden sm:inline">
             Share
+            </span>
             <FaShare />
           </button>
         </DialogTrigger>
-        <DialogContent className="bg-blue-100">
+        <DialogContent className="bg-blue-100 dark:bg-slate-500 dark:text-white/80">
           <DialogHeader>
             <DialogTitle>Share Post</DialogTitle>
           </DialogHeader>
           <textarea
             placeholder="Write something..."
-            className="w-full border p-2 rounded-md"
+            className="w-full border p-2 rounded-md dark:placeholder:text-slate-900"
             value={shareText}
             onChange={(e) => setShareText(e.target.value)}
           />
