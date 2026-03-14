@@ -41,16 +41,16 @@ const FriendProfile = () => {
           />
         </div>
         <div className="mt-12 px-4 flex flex-col gap-1">
-             <h2 className="text-lg font-semibold">{friendData?.name}</h2>
-          <span className="text-sm text-gray-500">@{friendData?.username}</span>
+             <h2 className="text-lg font-semibold dark:text-white/80">{friendData?.name}</h2>
+          <span className="text-sm text-gray-500 dark:text-white/80">@{friendData?.username}</span>
 
-          <span className="text-sm text-gray-600">{friendData?.email}</span>
+          <span className="text-sm text-gray-600 dark:text-white/80">{friendData?.email}</span>
 
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-gray-600 dark:text-white/80">
             Gender: {friendData?.gender}
           </span>
 
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-gray-600 dark:text-white/80">
             Birth date: {new Date(friendData?.dateOfBirth).toLocaleDateString()}
           </span>
 

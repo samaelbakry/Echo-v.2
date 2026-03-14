@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useUserDataQuery } from "@/hooks/useUserDataQuery/useUserDataQuery";
 import FollowBtn from "../followBtn/FollowBtn";
 
-const PostCardHeader = ({post,friendProfile,}: {  post: PostType;  friendProfile?: boolean;}) => {
+const PostCardHeader = ({post}: {post: PostType;}) => {
 
   const [open, setOpen] = useState<boolean>(false);
   const queryClient = useQueryClient();
@@ -49,7 +49,7 @@ const PostCardHeader = ({post,friendProfile,}: {  post: PostType;  friendProfile
           </div>
         </div>
         <div className="px-3">
-          {post?.user?.name === userData?.name && (
+          {post?.user?._id === userData?._id &&  (
             <>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -78,11 +78,8 @@ const PostCardHeader = ({post,friendProfile,}: {  post: PostType;  friendProfile
           )}
         </div>
       </div>
-      {friendProfile ? (
-        " "
-      ) : (
         <UpdatePostDialog post={post} open={open} setOpen={setOpen} />
-      )}
+    
     </>
   );
 };

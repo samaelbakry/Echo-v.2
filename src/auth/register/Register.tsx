@@ -49,10 +49,10 @@ const Register = () => {
   return (
     <>
       <div className=" text-gray-700 p-3 ">
-        <h2 className="md:text-2xl text-blue-800 font-bold text-left my-3">
+        <h2 className="md:text-2xl text-blue-900 dark:text-white/80 font-bold text-left my-3">
           New to echo ? join us now !
         </h2>
-        <form action="" className="space-y-3" onSubmit={form.handleSubmit(sendFormData)}>
+        <form action="" className="space-y-3 dark:text-white" onSubmit={form.handleSubmit(sendFormData)}>
           <Controller
             name="name"
             control={form.control}
@@ -197,9 +197,9 @@ const Register = () => {
             />
           </div>
            <div className="flex items-center justify-between my-4">
-          <p>
+          <p className="dark:text-white/70">
             already have an account ?
-            <Link className="font-bold mx-1" to={"/login"}>
+            <Link className="font-bold mx-1 dark:text-white" to={"/login"}>
               Log in
             </Link>
           </p>

@@ -10,7 +10,7 @@ import { TiAttachment } from "react-icons/ti";
 import { Spinner } from "../ui/spinner";
 import { useUserDataQuery } from "@/hooks/useUserDataQuery/useUserDataQuery";
 
-const UpdatePostDialog = ({ post ,open , setOpen  }: { post: PostType , open: boolean , setOpen: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const UpdatePostDialog = ({ post ,open , setOpen}: { post: PostType , open: boolean , setOpen: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
   const [editPostImage, setEditPostImage] = useState<File | string | null>(post.image || null,);
   const attachPostImage = useRef<HTMLInputElement | null>(null);
@@ -55,7 +55,7 @@ const UpdatePostDialog = ({ post ,open , setOpen  }: { post: PostType , open: bo
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="md:max-w-2xl bg-blue-100">
+        <DialogContent className="md:max-w-2xl bg-blue-100 dark:bg-slate-500 dark:text-white/80">
           <DialogHeader>
             <DialogTitle>Edit your Post</DialogTitle>
             <div className="my-2 flex items-center gap-1">
@@ -65,15 +65,14 @@ const UpdatePostDialog = ({ post ,open , setOpen  }: { post: PostType , open: bo
                 className="size-8 rounded-2xl"
               />
               <div className="flex flex-col">
-                <span>{userData?.name}</span>
-                <span>{userData?.username ? userData.username :"user" }</span>
-              </div>
+                <span>{userData?.name} - @{userData?.username ? userData.username :"user" }</span>
+              </div> 
             </div>
             <DialogDescription>
               <Textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className={`${editPostImage ? "min-h-10" : " min-h-40 w-full"}`}
+                className={`${editPostImage ? "min-h-10" : " min-h-40 w-full text-black dark:text-white/80"}`}
               />
               {editPostImage && (
                 <img
