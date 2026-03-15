@@ -10,7 +10,6 @@ const Bookmarked = () => {
     queryFn: getAllSavedPosts,
     select:(data)=>data?.data.bookmarks
   });
-  console.log(data);
   
   return <>
   <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 my-5 p-5 gap-5">
@@ -18,7 +17,8 @@ const Bookmarked = () => {
         <UserInfo/>
     </div>
     <div className="col-span-1 md:col-span-2">
-            {data?.map((savedPost:PostType)=>(<PostCard post={savedPost}/>))}
+      {data?.length === 0 && <p className="bg-blur py-5 text-center dark:text-white/80">You haven't saved any posts yet. Start bookmarking posts to see them here</p>}
+      {data?.map((savedPost:PostType)=>(<PostCard post={savedPost}/>))}
     </div>
 
   </div>

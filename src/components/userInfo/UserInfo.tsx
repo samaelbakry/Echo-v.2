@@ -7,6 +7,8 @@ import fallBackImg from "../../assets/download (2).jpg"
 import { IoCameraOutline } from "react-icons/io5";
 import React, { useEffect, useState } from "react";
 import { useUserDataQuery } from "@/hooks/useUserDataQuery/useUserDataQuery";
+import { RiUserFollowLine } from "react-icons/ri";
+
 
 const UserInfo = () => {
 
@@ -70,7 +72,15 @@ async function changeProfilePhotoHandler() {
           <span className="text-sm text-gray-600 dark:text-white/80">
             Birth date: {new Date(userData?.dateOfBirth).toLocaleDateString()}
           </span>
+         
           <div className="flex flex-col gap-3 mt-3 text-sm">
+             <Link to={"/followedUsers"} className="flex items-center gap-2 bg-orange-50 p-2 rounded-xl">
+              <span className="bg-orange-200 p-1 rounded-lg">
+                <RiUserFollowLine className="text-base text-orange-700" />
+              </span>
+              <span className="font-medium"></span>
+              Following feed
+            </Link>
             <span className="flex items-center gap-2 bg-blue-50 p-2 rounded-xl">
               <span className="bg-blue-200 p-1 rounded-lg">
                 <FaUserCheck className="text-base text-blue-700" />
@@ -85,7 +95,6 @@ async function changeProfilePhotoHandler() {
               <span className="font-medium">{userData?.followingCount}</span>
               Following
             </span>
-
             <Link to={"/bookmarkedPosts"} className="flex items-center gap-2 bg-purple-50 p-2 rounded-xl">
               <span className="bg-purple-200 p-1 rounded-lg">
                 <FaBookmark className="text-base text-purple-700" />

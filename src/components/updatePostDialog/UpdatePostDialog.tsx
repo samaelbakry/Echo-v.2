@@ -60,7 +60,7 @@ const UpdatePostDialog = ({ post ,open , setOpen}: { post: PostType , open: bool
             <DialogTitle>Edit your Post</DialogTitle>
             <div className="my-2 flex items-center gap-1">
               <img
-                src={userData.photo}
+                src={userData?.photo}
                 alt="userImage"
                 className="size-8 rounded-2xl"
               />

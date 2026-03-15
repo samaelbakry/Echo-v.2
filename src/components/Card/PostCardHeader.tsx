@@ -3,7 +3,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger,} from "../ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { useState } from "react";
 import { deletePost } from "@/services/postsServices";
 import { toast } from "react-toastify";
@@ -12,8 +18,7 @@ import { Link } from "react-router-dom";
 import { useUserDataQuery } from "@/hooks/useUserDataQuery/useUserDataQuery";
 import FollowBtn from "../followBtn/FollowBtn";
 
-const PostCardHeader = ({post}: {post: PostType;}) => {
-
+const PostCardHeader = ({ post }: { post: PostType }) => {
   const [open, setOpen] = useState<boolean>(false);
   const queryClient = useQueryClient();
   const { userData } = useUserDataQuery();
@@ -22,6 +27,7 @@ const PostCardHeader = ({post}: {post: PostType;}) => {
     await deletePost(post._id);
     toast.success("post deleted Successfully!");
     queryClient.invalidateQueries({ queryKey: ["getAllPosts"] });
+    queryClient.invalidateQueries({ queryKey: ["getUserPosts"] });
   };
 
   return (
@@ -38,7 +44,7 @@ const PostCardHeader = ({post}: {post: PostType;}) => {
               <Link to={`/profile/${post?.user?._id}`}>
                 {post?.user?.name} - @{post?.user?.username}
               </Link>
-              <FollowBtn userId={post.user._id} userName={post.user.name}/>
+              <FollowBtn userId={post.user._id} userName={post.user.name} />
             </div>
             <span className="text-sm dark:text-white/80">
               {new Date(post.createdAt).toLocaleString("en-us", {
@@ -49,10 +55,10 @@ const PostCardHeader = ({post}: {post: PostType;}) => {
           </div>
         </div>
         <div className="px-3">
-          {post?.user?._id === userData?._id &&  (
+          {post?.user?._id === userData?._id && (
             <>
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger asChild className="cursor-pointer">
                   <HiDotsHorizontal />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -60,6 +66,7 @@ const PostCardHeader = ({post}: {post: PostType;}) => {
                     onClick={() => {
                       setOpen(true);
                     }}
+                    
                   >
                     <CiEdit />
                     Edit
@@ -78,8 +85,7 @@ const PostCardHeader = ({post}: {post: PostType;}) => {
           )}
         </div>
       </div>
-        <UpdatePostDialog post={post} open={open} setOpen={setOpen} />
-    
+      <UpdatePostDialog post={post} open={open} setOpen={setOpen} />
     </>
   );
 };

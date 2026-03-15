@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { Badge } from "../ui/badge";
 import FollowSuggestions from "../followSuggestions/FollowSuggestions";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Notifications = () => {
   const { data } = useQuery({
@@ -22,6 +24,11 @@ const Notifications = () => {
     console.log(response);
     queryClient.invalidateQueries({ queryKey: ["getNotifications"] });
   }
+  useEffect(() => {
+   console.log(data);
+   
+  }, [])
+  
 
   return (
     <>
@@ -54,7 +61,7 @@ const Notifications = () => {
           </div>
           <div className="flex flex-col gap-2 mt-2">
             {data?.map((notification: NotificationType, index: number) => (
-              <div key={index}
+              <Link to={`/notificationData/${notification.entityId}`} key={index}
                 className="flex items-start gap-3 bg-blue-50/70 cursor-pointer hover:bg-blue-50 dark:hover:bg-slate-500 p-3 rounded-xl transition"
               >
                 <img
@@ -82,7 +89,7 @@ const Notifications = () => {
                     {notification.type} on your post
                   </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </>

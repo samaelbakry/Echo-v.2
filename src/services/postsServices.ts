@@ -15,7 +15,7 @@ export async function getAllPosts() {
 
 export async function getSinglePostId(id:string) {
     const token = localStorage.getItem("token")
-    const response = await axios.get<DataType>(`${API_BASE_URL}/posts/${id}`,{
+    const response = await axios.get(`${API_BASE_URL}/posts/${id}`,{
         headers:{
             Authorization:`Bearer ${token}`
         }
@@ -43,6 +43,15 @@ export async function updatePost(postId:string,formData:FormData) {
 export async function deletePost(postId:string) {
     const token = localStorage.getItem("token")
     const response = await axios.delete(`${API_BASE_URL}/posts/${postId}`,{
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    })
+    return response.data
+}
+export async function getFollowedUsersPosts() {
+    const token = localStorage.getItem("token")
+    const response = await axios.get(`${API_BASE_URL}/posts/feed?only=following&limit=10`,{
         headers:{
             Authorization:`Bearer ${token}`
         }

@@ -15,6 +15,8 @@ import UserProfile from "./pages/userProfile/UserProfile";
 import FriendProfile from "./pages/friendProfile/FriendProfile";
 import Bookmarked from "./pages/bookmarked/Bookmarked";
 import NotificationPage from "./pages/mobilePages/NotificationPage";
+import FollowedUsersPosts from "./pages/followedUsersPosts/FollowedUsersPosts";
+import NotificationsData from "./pages/notificationsData/NotificationsData";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -64,10 +66,26 @@ const App = () => {
           ),
         },
         {
-          path: "/notificationspage",
+          path: "/notificationsPage",
           element: (
             <MainProtectedRoutes>
               <NotificationPage />
+            </MainProtectedRoutes>
+          ),
+        },
+        {
+          path: "/followedUsers",
+          element: (
+            <MainProtectedRoutes>
+              <FollowedUsersPosts />
+            </MainProtectedRoutes>
+          ),
+        },
+        {
+          path: "/notificationData/:postId",
+          element: (
+            <MainProtectedRoutes>
+              <NotificationsData />
             </MainProtectedRoutes>
           ),
         },
