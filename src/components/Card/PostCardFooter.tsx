@@ -115,7 +115,7 @@ const PostCardFooter = ({ post }: { post: PostType }) => {
               <img
                 src={post.topComment.commentCreator.photo}
                 alt={post.topComment.commentCreator.name}
-                className=" border border-violet-900 outline-offset-4 md:m-2 rounded-full md:size-10 size-6"
+                className="md:m-2 rounded-full md:size-10 size-6 object-cover"
               />
               <div className="flex flex-col md:gap-1">
                 <span className="font-bold text-sm md:text-md capitalize text-gray-800">

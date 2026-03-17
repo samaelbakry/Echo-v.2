@@ -6,6 +6,7 @@ import { loginSchema, type loginSchemaType } from "@/lib/AuthSchema.ts/authSchem
 import { loginForm } from "@/services/authServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
+import { Helmet } from "react-helmet";
 import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate, } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -45,6 +46,9 @@ const Login = () => {
 
   return (
     <>
+       <Helmet>
+        <title>Login Page </title>
+      </Helmet>
       <div className=" text-gray-700 p-3">
         <h2 className="md:text-2xl text-blue-900 dark:text-white/80 font-bold text-left my-3">
          welcome back join us now !

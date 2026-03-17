@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { registerSchema, type registerSchemaType } from "@/lib/AuthSchema.ts/authSchema";
 import { registerForm } from "@/services/authServices";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const navigate = useNavigate()
@@ -48,6 +49,9 @@ const Register = () => {
 
   return (
     <>
+       <Helmet>
+        <title>Register Page </title>
+      </Helmet>
       <div className=" text-gray-700 p-3 ">
         <h2 className="md:text-2xl text-blue-900 dark:text-white/80 font-bold text-left my-3">
           New to echo ? join us now !

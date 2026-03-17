@@ -2,6 +2,7 @@ import PostCard from "@/components/Card/PostCard";
 import PostSkeleton from "@/components/postSkeleton/PostSkeleton";
 import { getSinglePostId } from "@/services/postsServices";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 
 const NotificationsData = () => {
@@ -16,6 +17,9 @@ const NotificationsData = () => {
 
   return (
     <>
+    <Helmet>
+        <title>Notifications Page</title>
+      </Helmet>
       <div className="mx-auto max-w-6xl grid grid-cols-1 p-5 my-5">
         <div className="col-span-1 dark:bg-slate-700 dark:border-slate-700 dark:shadow-slate-800  rounded-2xl p-5">
           {isLoading ? (

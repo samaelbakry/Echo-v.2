@@ -41,16 +41,18 @@ const PostCardHeader = ({ post }: { post: PostType }) => {
           />
           <div className="flex flex-col gap-1">
             <div className="capitalize flex items-center gap-2 text-blue-900 text-sm dark:text-blue-900 font-bold">
-              <Link to={`/profile/${post?.user?._id}`}>
-                {post?.user?.name} - @{post?.user?.username}
+              <Link to={`/profile/${post?.user?._id}`} className="text-sm">
+                {post?.user?.name}-@{post?.user?.username}
               </Link>
               <FollowBtn userId={post.user._id} userName={post.user.name} />
             </div>
             <span className="text-sm dark:text-white/80">
-              {new Date(post.createdAt).toLocaleString("en-us", {
-                timeStyle: "short",
-                dateStyle: "medium",
-              })}
+              {new Date(post.createdAt).toLocaleString(
+                        "en-us",
+                        {
+                          timeStyle: "short",
+                        },
+                      )}
             </span>
           </div>
         </div>

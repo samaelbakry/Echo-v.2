@@ -67,7 +67,7 @@ const CreatePost = () => {
 
   return (
     <>
-      <div className="bg-blue-50/70 dark:bg-slate-500 shadow rounded-xl p-4 flex items-center justify-between flex-wrap gap-2">
+      {/* <div className="bg-blue-50/70 dark:bg-slate-500 shadow rounded-xl p-4 flex items-center justify-between gap-2">
         <div className="space-x-2 flex items-center ">
           <img src={userData?.photo} alt={userData?.name} className="size-9 rounded-full object-cover"/>
           <div>
@@ -78,7 +78,7 @@ const CreatePost = () => {
         <div>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger className="cursor-pointer" onClick={() => setOpen(true)}>
-              <span className="bg-blur dark:bg-slate-400 p-2 cursor-pointer rounded-2xl font-bold">
+              <span className="bg-blur dark:bg-slate-400 px-2 py-1 cursor-pointer rounded-2xl font-bold flex items-center min-w-0">
                 + Create Post
               </span>
             </DialogTrigger>
@@ -110,7 +110,100 @@ const CreatePost = () => {
             </DialogContent>
           </Dialog>
         </div>
-      </div>
+      </div> */}
+      <div className="bg-blue-50/70 dark:bg-slate-500 shadow rounded-xl p-4 flex items-center justify-between gap-3">
+
+  {/* left side */}
+  <div className="flex items-center gap-2 min-w-0">
+    <img
+      src={userData?.photo}
+      alt={userData?.name}
+      className="size-9 rounded-full object-cover"
+    />
+
+    <div className="flex items-center min-w-0">
+      <span className="dark:text-white/80 font-medium truncate">
+        {userData?.name},  what's happening?
+      </span>
+    </div>
+  </div>
+
+  <div className="shrink-0">
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button className="bg-blur dark:bg-slate-400 px-3 py-1 rounded-2xl font-bold whitespace-nowrap hover:opacity-80 transition">
+          + Create Post
+        </button>
+      </DialogTrigger>
+      <DialogContent className="md:max-w-2xl bg-blue-100 dark:bg-slate-500">
+        <DialogHeader>
+          <DialogTitle className="dark:text-white/80">
+            Create Post
+          </DialogTitle>
+          <DialogDescription>
+            <div className="flex items-center gap-2 p-4">
+              <img
+                className="size-10 object-cover rounded-full"
+                src={userData?.photo}
+                alt={userData?.name}
+              />
+              <span className="capitalize font-semibold dark:text-white/80">
+                {userData?.name} - @{userData?.username}
+              </span>
+            </div>
+
+            <Textarea
+              className={`w-full ${
+                preview
+                  ? ""
+                  : "min-h-40 border-0 placeholder:text-gray-900 dark:text-white"
+              }`}
+              ref={textAreaControl}
+              placeholder="Got something to say?..."
+            />
+
+            {preview && (
+              <img
+                src={preview}
+                className="w-full max-h-80 object-cover rounded-lg mt-3"
+                alt="post-image"
+              />
+            )}
+
+            <div className="flex my-4 items-center gap-3 justify-end">
+              <input
+                type="file"
+                onChange={chooseFile}
+                className="hidden"
+                ref={inputControl}
+              />
+
+              <TiAttachment
+                onClick={openFile}
+                className="text-3xl text-blue-800 cursor-pointer"
+              />
+
+              <Button
+                variant={"outline"}
+                className="cursor-pointer"
+                onClick={createPostFeed}
+              >
+                {isLoading ? <Spinner /> : "Share your post"}
+              </Button>
+
+              <Button
+                variant={"outline"}
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </Button>
+            </div>
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  </div>
+</div>
     </>
   );
 };

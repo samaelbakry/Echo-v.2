@@ -59,7 +59,7 @@ export async function getAllSavedPosts() {
 }
 export async function sharePost(postId:string , shareText:string) {
     const token = localStorage.getItem("token")
-    const response = await axios.post(`${API_BASE_URL}/posts/${postId}/share`, shareText ,{
+    const response = await axios.post(`${API_BASE_URL}/posts/${postId}/share`, {body:shareText},{
         headers:{
             Authorization:`Bearer ${token}`
         }

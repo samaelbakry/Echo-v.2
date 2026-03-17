@@ -2,8 +2,13 @@ import type { PostType } from "@/types/postsType"
 
 const PostCardBody = ( {post}:{post:PostType} ) => {
   return <>
-  <div className='flex flex-col gap-2 items-center justify-center'>
-    <div className="font-semibold text-xl my-5 flex items-center dark:text-white/80">{post?.body}</div>
+   <div className='flex flex-col gap-2 items-center justify-center'>
+    {post?.body && (
+  <div className="font-semibold text-lg my-3 text-gray-800 dark:text-white/80">
+    {post.body}
+  </div>
+)}
+
    {post?.sharedPost?.body && (
   <div className="border border-gray-300 rounded-xl p-3 mx-5 w-full">
     <div className="flex items-center gap-2 mb-2">
@@ -29,7 +34,7 @@ const PostCardBody = ( {post}:{post:PostType} ) => {
 )}
     {post?.image && <img src={ post.image} alt={post.body} className="object-cover h-90 w-full p-2 rounded-2xl"/>}
   </div>
-  </>
+  </> 
 }
 
 export default PostCardBody

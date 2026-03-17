@@ -40,7 +40,6 @@ async function changeProfilePhotoHandler() {
   const formData = new FormData()
   formData.append("photo", changePhoto)
   changeProfilePhoto(formData)
-  
 }
     useEffect(() => {
     if(changePhoto){

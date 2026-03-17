@@ -8,18 +8,18 @@ import { useUserDataQuery } from "@/hooks/useUserDataQuery/useUserDataQuery";
 import { changeUserPassword } from "@/services/authServices";
 import { getUserPosts } from "@/services/userServices";
 import type { PostType } from "@/types/postsType";
-import { useQuery, useQueryClient} from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
+import { Helmet } from "react-helmet";
 import { IoSettingsSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const UserProfile = () => {
-  
-  const navigate = useNavigate()
-  const queryClient =useQueryClient()
-  const{ userData} = useUserDataQuery()
- 
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { userData } = useUserDataQuery();
+
   const { data: userPost, isLoading } = useQuery({
     queryKey: ["getUserPosts", userData?._id],
     queryFn: () => getUserPosts(userData!._id),
@@ -37,11 +37,11 @@ const UserProfile = () => {
       newPassword: newPasswordInput.current?.value,
     };
     try {
-      const response = await changeUserPassword(PasswordObj)
+      const response = await changeUserPassword(PasswordObj);
       console.log(response);
-      navigate("/login")
-      toast.success("You have to login again")
-      queryClient.invalidateQueries({queryKey:["getUserData"]})
+      navigate("/login");
+      toast.success("You have to login again");
+      queryClient.invalidateQueries({ queryKey: ["getUserData"] });
     } catch (error) {
       console.log(error);
     }
@@ -49,17 +49,25 @@ const UserProfile = () => {
 
   return (
     <>
+      {userData && (
+        <Helmet>
+          <title>{userData.name} | Profile</title>
+        </Helmet>
+      )}
       <div className="mx-auto max-w-7xl grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-6 xl:grid-cols-6 p-5 my-5">
         <div className="col-span-1 md:col-span-2 bg-blur self-start">
           <UserInfo />
           <div className="p-3 m-3">
-            <div className="flex items-center justify-between cursor-pointer mb-3 dark:text-white/80" onClick={() => setOpenSettings((open) => !open)}>
+            <div
+              className="flex items-center justify-between cursor-pointer mb-3 dark:text-white/80"
+              onClick={() => setOpenSettings((open) => !open)}
+            >
               <span>change your password ? </span>
               <IoSettingsSharp />
             </div>
             {openSettings && (
               <>
-                 <Input
+                <Input
                   ref={passwordInput}
                   className="flex-1 rounded-xl border-gray-300 shadow mb-2"
                   placeholder="Password"
@@ -69,14 +77,23 @@ const UserProfile = () => {
                   className="flex-1 rounded-xl border-gray-300 shadow mb-2"
                   placeholder="New password"
                 />
-                <Button className="w-fit mx-2 bg-blue-900 mt-2 dark:bg-slate-200" onClick={handleChangePassword}>Change</Button>
+                <Button
+                  className="w-fit mx-2 bg-blue-900 mt-2 dark:bg-slate-200"
+                  onClick={handleChangePassword}
+                >
+                  Change
+                </Button>
               </>
             )}
           </div>
         </div>
         <div className="col-span-1 md:col-span-4 bg-blur p-2 my-2">
           <CreatePost />
-          {userPost?.length === 0 &&<p className="bg-blur p-3 my-2 text-center md:text-xl">No posts yet...</p>}
+          {userPost?.length === 0 && (
+            <p className="bg-blur p-3 my-2 text-center md:text-xl">
+              No posts yet...
+            </p>
+          )}
           {isLoading ? (
             [...Array(5)].map(() => <PostSkeleton />)
           ) : (

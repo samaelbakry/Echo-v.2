@@ -1,4 +1,7 @@
-import {getAllNotifications,markAllNotificationsAsRead,} from "@/services/notificationsServices";
+import {
+  getAllNotifications,
+  markAllNotificationsAsRead,
+} from "@/services/notificationsServices";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { NotificationType } from "@/types/notificationsType";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
@@ -25,10 +28,23 @@ const Notifications = () => {
     queryClient.invalidateQueries({ queryKey: ["getNotifications"] });
   }
   useEffect(() => {
-   console.log(data);
-   
-  }, [])
-  
+    console.log(data);
+  }, []);
+
+  function getNotificationType(type: string) {
+    switch (type) {
+      case "like_post":
+        return "liked your post ❤️";
+      case "comment_post":
+        return "commented on your post 💬";
+      case "follow_post":
+        return "started following you 👤";
+      case "share_post":
+        return "shared your post 🔄";
+      default:
+        return "interacted with your post";
+    }
+  }
 
   return (
     <>
@@ -61,7 +77,9 @@ const Notifications = () => {
           </div>
           <div className="flex flex-col gap-2 mt-2">
             {data?.map((notification: NotificationType, index: number) => (
-              <Link to={`/notificationData/${notification.entityId}`} key={index}
+              <Link
+                to={`/notificationData/${notification.entityId}`}
+                key={index}
                 className="flex items-start gap-3 bg-blue-50/70 cursor-pointer hover:bg-blue-50 dark:hover:bg-slate-500 p-3 rounded-xl transition"
               >
                 <img
@@ -86,7 +104,7 @@ const Notifications = () => {
                     </span>
                   </div>
                   <span className="text-gray-600 text-sm">
-                    {notification.type} on your post
+                    {getNotificationType(notification.type)}
                   </span>
                 </div>
               </Link>
@@ -94,8 +112,8 @@ const Notifications = () => {
           </div>
         </>
       )}
-       <h2 className="text-lg font-bold m-3">Suggestions for you</h2>
-      <FollowSuggestions/>
+      <h2 className="text-lg font-bold m-3">Suggestions for you</h2>
+      <FollowSuggestions />
     </>
   );
 };

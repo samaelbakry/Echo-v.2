@@ -14,7 +14,7 @@ import { Spinner } from "../ui/spinner";
 import { toast } from "react-toastify";
 import { FaShare } from "react-icons/fa6";
 
-const SharePostDialog = ({post}: {post: PostType;}) => {
+const SharePostDialog = ({ post }: { post: PostType }) => {
   const [isLoading, setIsLoading] = useState<boolean>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [shareText, setShareText] = useState("");
@@ -38,11 +38,9 @@ const SharePostDialog = ({post}: {post: PostType;}) => {
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <button className="flex items-center gap-2 reactionsBtn">
-            <span className="hidden sm:inline">
-            Share
-            </span>
-            <FaShare />
+          <button className="flex w-full items-center justify-center gap-2 reactionsBtn group">
+            <FaShare className="text-base transition-transform duration-300 group-hover:scale-110" />
+            <span className="hidden sm:inline font-medium">Share</span>
           </button>
         </DialogTrigger>
         <DialogContent className="bg-blue-100 dark:bg-slate-500 dark:text-white/80">
