@@ -1,6 +1,6 @@
 import { tokenContext } from "@/context/TokenContextProvider";
 import { useUserDataQuery } from "@/hooks/useUserDataQuery/useUserDataQuery";
-import getDaysLeft from "@/lib/GetDaysLeft";
+import getDaysLeft from "@/lib/getDaysLeft";
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 
