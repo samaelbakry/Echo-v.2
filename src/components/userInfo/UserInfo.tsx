@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FaUserCheck, FaUserFriends } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { uploadNewProfilePhoto } from "@/services/interactionServices";
 import fallBackImg from "../../assets/download (2).jpg";
 import { IoCameraOutline } from "react-icons/io5";
@@ -12,6 +12,7 @@ import { RiUserFollowLine } from "react-icons/ri";
 const UserInfo = () => {
   const [changePhoto, setChangePhoto] = useState<File | null>(null);
   const { userData } = useUserDataQuery();
+  const navigate = useNavigate()
 
   const inputControl = React.useRef<HTMLInputElement | null>(null);
   const queryClient = useQueryClient();
@@ -53,11 +54,15 @@ const UserInfo = () => {
   }
 
   const today = new Date();
-  const differTime = expirationDate
-    ? expirationDate.getTime() - today.getTime()
-    : 0;
+  const differTime = expirationDate ? expirationDate.getTime() - today.getTime(): 0;
 
   const daysLeft = Math.ceil(differTime / (1000 * 60 * 60 * 24));
+  useEffect(() => {
+    if(expirationDate && daysLeft <=0){
+      navigate("/warning")
+    }
+  }, [expirationDate , daysLeft])
+  
 
   return (
     <>
@@ -122,11 +127,8 @@ const UserInfo = () => {
           <div
             className={`p-3 rounded-xl flex justify-between items-center text-xs mt-2
       ${
-        daysLeft <= 2
-          ? "bg-red-50 text-red-600"
-          : daysLeft <= 5
-            ? "bg-yellow-50 text-yellow-700"
-            : "bg-green-50 text-green-700"
+        daysLeft <= 2 ? "bg-red-50 text-red-600" : daysLeft <= 5
+            ? "bg-yellow-50 text-yellow-700" : "bg-green-50 text-green-700"
       }`}
           >
             <span>
@@ -138,7 +140,6 @@ const UserInfo = () => {
             </span>
           </div>
 
-          {/* STATS */}
           <div className="grid grid-cols-2 gap-3 mt-3 text-sm">
             <Link
               to={"/followedUsers"}

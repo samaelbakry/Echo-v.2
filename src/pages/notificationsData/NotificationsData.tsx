@@ -7,13 +7,11 @@ import { useParams } from "react-router-dom";
 
 const NotificationsData = () => {
   const { postId } = useParams();
-  console.log(postId);
   const { data: post, isLoading } = useQuery({
     queryKey: ["getSinglePostId", postId],
     queryFn: () => getSinglePostId(postId!),
     select: (post) => post?.data?.post,
   });
-  console.log(post);
 
   return (
     <>

@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { Badge } from "../ui/badge";
 import FollowSuggestions from "../followSuggestions/FollowSuggestions";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Notifications = () => {
@@ -27,9 +26,7 @@ const Notifications = () => {
     console.log(response);
     queryClient.invalidateQueries({ queryKey: ["getNotifications"] });
   }
-  useEffect(() => {
-    console.log(data);
-  }, []);
+
 
   function getNotificationType(type: string) {
     switch (type) {

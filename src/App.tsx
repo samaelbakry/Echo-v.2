@@ -17,6 +17,7 @@ import Bookmarked from "./pages/bookmarked/Bookmarked";
 import NotificationPage from "./pages/mobilePages/NotificationPage";
 import FollowedUsersPosts from "./pages/followedUsersPosts/FollowedUsersPosts";
 import NotificationsData from "./pages/notificationsData/NotificationsData";
+import Warning from "./pages/warning/Warning";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -86,6 +87,14 @@ const App = () => {
           element: (
             <MainProtectedRoutes>
               <NotificationsData />
+            </MainProtectedRoutes>
+          ),
+        },
+        {
+          path: "/warning",
+          element: (
+            <MainProtectedRoutes>
+              <Warning />
             </MainProtectedRoutes>
           ),
         },
